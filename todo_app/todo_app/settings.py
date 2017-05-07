@@ -73,10 +73,17 @@ WSGI_APPLICATION = 'todo_app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
+import json
+with open('db_config.json') as json_data:
+    config = json.loads(json_data)
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config['name'],
+        'USER': config['user'],
+        'PASSWORD': config['password'],
+        'HOST': config['host'],
+        'PORT': config['port'],
     }
 }
 

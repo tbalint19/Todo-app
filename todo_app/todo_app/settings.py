@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'app_profile.apps.AppProfileConfig',
 ]
 
 MIDDLEWARE = [
@@ -75,7 +76,7 @@ WSGI_APPLICATION = 'todo_app.wsgi.application'
 
 import json
 with open('db_config.json') as json_data:
-    config = json.loads(json_data)
+    config = json.load(json_data)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -125,3 +126,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR + '/_apps/',
+]

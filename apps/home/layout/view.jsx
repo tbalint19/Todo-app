@@ -2,6 +2,7 @@ import React from 'react'
 
 import ViewDependencies from 'view_dependencies'
 
+import Background from './background/component'
 import Login from './login/component'
 import SignupModal from './signupmodal/component'
 
@@ -17,6 +18,8 @@ class View extends React.Component{
 
         {/* For development only! */}
         <ViewDependencies/>
+
+        <Background/>
 
         {/* Middle */}
         <Login data={data} state={state} controller={controller}/>

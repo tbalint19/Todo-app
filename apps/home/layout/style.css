@@ -1,9 +1,6 @@
+@import "./background/style.css";
 @import "./login/style.css";
 @import "./signupmodal/style.css";
-
-body {
-  background-color: beige;
-}
 
 .app-container {
 

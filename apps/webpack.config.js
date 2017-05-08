@@ -10,7 +10,7 @@ module.exports = {
   },
 
   output: {
-      path: '../todo_app/_apps/',
+      path: '../todo_app/_static/apps/',
       filename: "[name].js",
   },
 

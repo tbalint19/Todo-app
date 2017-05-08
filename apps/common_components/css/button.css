@@ -1,0 +1,18 @@
+button {
+  color: #5bc0de;
+  padding: 10px;
+  background-color: white;
+  box-shadow: 0px 0px 5px blue;
+  border: 1px solid #5bc0de;
+  border-radius: 3px;
+  cursor: pointer;
+  font-family: 'Bangers', cursive;
+}
+
+button:focus {
+  outline:0;
+}
+
+button:active {
+  box-shadow: 0px 0px 10px blue;
+}

@@ -1,0 +1,14 @@
+.welcome-container {
+  text-align: center;
+  position: absolute;
+  width: 30%;
+  left: 35%;
+  top: 20vh;
+  background-color: white;
+  border-radius: 3px;
+  box-shadow: 0 0 10px black;
+}
+
+.welcome-title {
+  color: #5bc0de;
+}

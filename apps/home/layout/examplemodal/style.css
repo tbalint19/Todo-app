@@ -1,0 +1,38 @@
+.github-button-container {
+  text-align: center;
+}
+
+.content-container {
+  text-align: center;
+  height: 200px;
+  padding-top: 40px;
+}
+
+.material-icons.md-120 {
+  font-size: 120px;
+}
+
+.modal-sign {
+  opacity: 0.2  ;
+  color: blue;
+}
+
+.loading-sign {
+  animation: loading 1.5s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes loading {
+  0% {transform: translateY(0);}
+  100% {transform: translateY(30px);}
+}
+
+.modal-username {
+  color: blue;
+  font-family: 'Montserrat', cursive;
+}
+
+.modal-picture {
+  border: 3px solid blue;
+  border-radius: 3px;
+}

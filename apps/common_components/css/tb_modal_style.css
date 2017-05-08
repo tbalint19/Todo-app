@@ -1,0 +1,58 @@
+.tb-modal {
+  background-color: beige;
+  z-index: 21;
+  border-radius: 3px;
+  position: absolute;
+  animation: tbModalAppear 0.4s forwards;
+  box-shadow: 0 0 10px black;
+}
+
+.tb-modal-background {
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  left: 0;
+  width: 100%;
+  background-color: blue;
+  opacity: 0.3;
+  z-index: 20;
+  animation: tbModalBackgroundAppear 0.4s forwards;
+}
+
+.tb-modal-content-container {
+  margin: 20px;
+}
+
+@keyframes tbModalAppear {
+  0% {opacity: 0; transform: translateY(-50vh);}
+  80% { transform: translateY(20vh);}
+  100% {opacity: 1; transform: translateY(0vh);}
+}
+
+@keyframes tbModalBackgroundAppear {
+  0% {opacity: 0;}
+  100% {opacity: 0.3;}
+}
+
+.tb-modal-leave {
+  animation: tbModalLeave 0.5s forwards;
+}
+
+@keyframes tbModalLeave {
+  0% {opacity: 1; transform: translateY(10vh);}
+  20% { transform: translateY(20vh);}
+  100% {opacity: 0; transform: translateY(-50vh);}
+}
+
+.tb-modal-background-leave {
+  animation: tbModalBackgroundLeave 0.5s forwards;
+}
+
+@keyframes tbModalBackgroundLeave {
+  0% {opacity: 0.5;}
+  100% {opacity: 0;}
+}
+
+.tb-modal-close-button {
+  float: right;
+}

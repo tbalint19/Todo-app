@@ -1,0 +1,52 @@
+.welcome-container {
+  text-align: center;
+  position: absolute;
+  width: 40%;
+  left: 30%;
+  top: 20vh;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 3px;
+  box-shadow: 0 0 20px white;
+}
+
+.welcome-title {
+  color: #5bc0de;
+  margin-bottom: 20px;
+}
+
+.welcome-intro {
+  color: #5bc0de;
+  margin-bottom: 20px;
+}
+
+.login-button {
+  width: 100px;
+  margin: 10px;
+  opacity: 0.8;
+}
+
+.login-button:hover {
+  opacity: 1;
+}
+
+.signup-button {
+  width: 100px;
+  margin: 0 10px;
+  opacity: 0.8;
+}
+
+.signup-button:hover {
+  opacity: 1;
+}
+
+.read-button {
+  width: 210px;
+  margin: 0 10px;
+  margin-bottom: 25px;
+  opacity: 0.8;
+}
+
+.read-button:hover {
+  opacity: 1;
+}

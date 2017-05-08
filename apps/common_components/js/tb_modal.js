@@ -16,7 +16,6 @@ class Modal extends Container{
     return {
       width: "40%",
       left: "30%",
-      top: "10vh"
     }
   }
   componentWillMount(){

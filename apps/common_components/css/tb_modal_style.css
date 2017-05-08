@@ -24,9 +24,9 @@
 }
 
 @keyframes tbModalAppear {
-  0% {opacity: 0; transform: translateY(-50vh);}
-  80% { transform: translateY(20vh);}
-  100% {opacity: 1; transform: translateY(0vh);}
+  0% {opacity: 0; transform: translateY(0vh);}
+  80% { transform: translateY(30vh);}
+  100% {opacity: 1; transform: translateY(20vh);}
 }
 
 @keyframes tbModalBackgroundAppear {
@@ -39,8 +39,8 @@
 }
 
 @keyframes tbModalLeave {
-  0% {opacity: 1; transform: translateY(10vh);}
-  20% { transform: translateY(20vh);}
+  0% {opacity: 1; transform: translateY(20vh);}
+  20% { transform: translateY(30vh);}
   100% {opacity: 0; transform: translateY(-50vh);}
 }
 

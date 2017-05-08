@@ -1,7 +1,7 @@
 import React from 'react'
 import Modal from 'tb_modal'
 
-class SignupModal extends Modal{
+class LoginModal extends Modal{
 
   content(props){
     return (
@@ -9,14 +9,14 @@ class SignupModal extends Modal{
         <CloseButton close={()=>this.close()}/>
         <InputField name={"username"}/>
         <InputField name={"password"}/>
-        <SignupButton/>
+        <LoginButton/>
       </div>
     )
   }
 
 }
 
-export default SignupModal
+export default LoginModal
 
 const CloseButton = (props) => (
   <button onClick={props.close} className={"tb-modal-close-button"}>x</button>
@@ -28,10 +28,10 @@ const InputField = (props) => (
   </div>
 )
 
-const SignupButton = (props) => (
+const LoginButton = (props) => (
   <div>
     <button>
-      Sign up
+      Login
     </button>
   </div>
 )

@@ -64,8 +64,8 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	__webpack_require__(216);
-	__webpack_require__(223);
+	__webpack_require__(219);
+	__webpack_require__(226);
 
 	var app = document.getElementById('app');
 
@@ -23228,17 +23228,25 @@
 
 	var _view_dependencies2 = _interopRequireDefault(_view_dependencies);
 
-	var _component = __webpack_require__(227);
+	var _component = __webpack_require__(212);
 
 	var _component2 = _interopRequireDefault(_component);
 
-	var _component3 = __webpack_require__(212);
+	var _component3 = __webpack_require__(213);
 
 	var _component4 = _interopRequireDefault(_component3);
 
-	var _component5 = __webpack_require__(214);
+	var _component5 = __webpack_require__(215);
 
 	var _component6 = _interopRequireDefault(_component5);
+
+	var _component7 = __webpack_require__(217);
+
+	var _component8 = _interopRequireDefault(_component7);
+
+	var _component9 = __webpack_require__(218);
+
+	var _component10 = _interopRequireDefault(_component9);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -23269,7 +23277,9 @@
 	        _react2.default.createElement(_view_dependencies2.default, null),
 	        _react2.default.createElement(_component2.default, null),
 	        _react2.default.createElement(_component4.default, { data: data, state: state, controller: controller }),
-	        state.view.modal == "exampleModal" && _react2.default.createElement(_component6.default, { data: data, state: state, controller: controller })
+	        state.view.modal == "signupModal" && _react2.default.createElement(_component6.default, { data: data, state: state, controller: controller }),
+	        state.view.modal == "loginModal" && _react2.default.createElement(_component8.default, { data: data, state: state, controller: controller }),
+	        state.view.modal == "infoModal" && _react2.default.createElement(_component10.default, { data: data, state: state, controller: controller })
 	      );
 	    }
 	  }]);
@@ -23310,6 +23320,28 @@
 /* 212 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Background = function Background(props) {
+	  return _react2.default.createElement("div", { className: "home-background" });
+	};
+
+	exports.default = Background;
+
+/***/ }),
+/* 213 */
+/***/ (function(module, exports, __webpack_require__) {
+
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
@@ -23322,7 +23354,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _container = __webpack_require__(213);
+	var _container = __webpack_require__(214);
 
 	var _container2 = _interopRequireDefault(_container);
 
@@ -23334,24 +23366,29 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Login = function (_Container) {
-	  _inherits(Login, _Container);
+	var Start = function (_Container) {
+	  _inherits(Start, _Container);
 
-	  function Login() {
-	    _classCallCheck(this, Login);
+	  function Start() {
+	    _classCallCheck(this, Start);
 
-	    return _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).apply(this, arguments));
+	    return _possibleConstructorReturn(this, (Start.__proto__ || Object.getPrototypeOf(Start)).apply(this, arguments));
 	  }
 
-	  _createClass(Login, [{
-	    key: 'reportClick',
-	    value: function reportClick() {
-	      this.dispatch({ type: "MODAL_OPENED", modal: "exampleModal" });
+	  _createClass(Start, [{
+	    key: 'getLogin',
+	    value: function getLogin() {
+	      this.dispatch({ type: "MODAL_OPENED", modal: "loginModal" });
 	    }
 	  }, {
-	    key: 'reportChange',
-	    value: function reportChange(event) {
-	      this.dispatch({ type: "INPUT_FIELD_CHANGED", value: event.target.value, name: event.target.name });
+	    key: 'getSignup',
+	    value: function getSignup() {
+	      this.dispatch({ type: "MODAL_OPENED", modal: "signupModal" });
+	    }
+	  }, {
+	    key: 'getInfo',
+	    value: function getInfo() {
+	      this.dispatch({ type: "MODAL_OPENED", modal: "infoModal" });
 	    }
 	  }, {
 	    key: 'render',
@@ -23362,21 +23399,25 @@
 	        'div',
 	        { className: "welcome-container" },
 	        _react2.default.createElement(Title, null),
+	        _react2.default.createElement(Intro, null),
 	        _react2.default.createElement(Controller, {
-	          reportClick: function reportClick() {
-	            return _this2.reportClick();
+	          getLogin: function getLogin() {
+	            return _this2.getLogin();
 	          },
-	          reportChange: function reportChange(event) {
-	            return _this2.reportChange(event);
+	          getSignup: function getSignup() {
+	            return _this2.getSignup();
+	          },
+	          getInfo: function getInfo() {
+	            return _this2.getInfo();
 	          } })
 	      );
 	    }
 	  }]);
 
-	  return Login;
+	  return Start;
 	}(_container2.default);
 
-	exports.default = Login;
+	exports.default = Start;
 
 
 	var Title = function Title(props) {
@@ -23387,6 +23428,14 @@
 	  );
 	};
 
+	var Intro = function Intro(props) {
+	  return _react2.default.createElement(
+	    'p',
+	    { className: "welcome-intro" },
+	    'The most simple to-do app ever.'
+	  );
+	};
+
 	var Controller = function Controller(props) {
 	  return _react2.default.createElement(
 	    'div',
@@ -23394,28 +23443,14 @@
 	    _react2.default.createElement(
 	      'p',
 	      null,
-	      _react2.default.createElement('input', { className: "user-input", onChange: props.reportChange, name: "username", placeholder: "username", value: props.value })
-	    ),
-	    _react2.default.createElement(
-	      'p',
-	      null,
-	      _react2.default.createElement('input', { className: "user-input", onChange: props.reportChange, name: "password", placeholder: "password", value: props.value })
-	    ),
-	    _react2.default.createElement(
-	      'p',
-	      null,
 	      _react2.default.createElement(
 	        'button',
-	        { className: "main-button", onClick: props.reportClick },
+	        { className: "login-button", onClick: props.getLogin },
 	        'Login'
-	      )
-	    ),
-	    _react2.default.createElement(
-	      'p',
-	      null,
+	      ),
 	      _react2.default.createElement(
 	        'button',
-	        { className: "main-button", onClick: props.reportClick },
+	        { className: "signup-button", onClick: props.getSignup },
 	        'Sign up'
 	      )
 	    ),
@@ -23424,7 +23459,7 @@
 	      null,
 	      _react2.default.createElement(
 	        'button',
-	        { className: "main-button", onClick: props.reportClick },
+	        { className: "read-button", onClick: props.getInfo },
 	        'Read more'
 	      )
 	    )
@@ -23432,7 +23467,7 @@
 	};
 
 /***/ }),
-/* 213 */
+/* 214 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23485,7 +23520,7 @@
 	exports.default = Container;
 
 /***/ }),
-/* 214 */
+/* 215 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23500,7 +23535,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _tb_modal = __webpack_require__(215);
+	var _tb_modal = __webpack_require__(216);
 
 	var _tb_modal2 = _interopRequireDefault(_tb_modal);
 
@@ -23522,17 +23557,6 @@
 	  }
 
 	  _createClass(SignupModal, [{
-	    key: 'fetchFreshData',
-	    value: function fetchFreshData() {
-	      var request = {
-	        method: "GET",
-	        destination: "https://api.github.com/users",
-	        action: { type: "GITHUB_DATA_ARRIVED" }
-	      };
-	      this.JSONtransfer(request);
-	      this.dispatch({ type: "GITHUB_DATA_REQUESTED" });
-	    }
-	  }, {
 	    key: 'content',
 	    value: function content(props) {
 	      var _this2 = this;
@@ -23542,7 +23566,10 @@
 	        null,
 	        _react2.default.createElement(CloseButton, { close: function close() {
 	            return _this2.close();
-	          } })
+	          } }),
+	        _react2.default.createElement(InputField, { name: "username" }),
+	        _react2.default.createElement(InputField, { name: "password" }),
+	        _react2.default.createElement(SignupButton, null)
 	      );
 	    }
 	  }]);
@@ -23558,6 +23585,26 @@
 	    'button',
 	    { onClick: props.close, className: "tb-modal-close-button" },
 	    'x'
+	  );
+	};
+
+	var InputField = function InputField(props) {
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement('input', { onChange: props.reportChange, name: props.name, placeholder: props.placeholder })
+	  );
+	};
+
+	var SignupButton = function SignupButton(props) {
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(
+	      'button',
+	      null,
+	      'Sign up'
+	    )
 	  );
 	};
 
@@ -23591,7 +23638,7 @@
 	};
 
 /***/ }),
-/* 215 */
+/* 216 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23606,7 +23653,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _container = __webpack_require__(213);
+	var _container = __webpack_require__(214);
 
 	var _container2 = _interopRequireDefault(_container);
 
@@ -23641,8 +23688,7 @@
 	    value: function setStyle() {
 	      return {
 	        width: "40%",
-	        left: "30%",
-	        top: "10vh"
+	        left: "30%"
 	      };
 	    }
 	  }, {
@@ -23700,16 +23746,201 @@
 	exports.default = Modal;
 
 /***/ }),
-/* 216 */
+/* 217 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _tb_modal = __webpack_require__(216);
+
+	var _tb_modal2 = _interopRequireDefault(_tb_modal);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var LoginModal = function (_Modal) {
+	  _inherits(LoginModal, _Modal);
+
+	  function LoginModal() {
+	    _classCallCheck(this, LoginModal);
+
+	    return _possibleConstructorReturn(this, (LoginModal.__proto__ || Object.getPrototypeOf(LoginModal)).apply(this, arguments));
+	  }
+
+	  _createClass(LoginModal, [{
+	    key: 'content',
+	    value: function content(props) {
+	      var _this2 = this;
+
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(CloseButton, { close: function close() {
+	            return _this2.close();
+	          } }),
+	        _react2.default.createElement(InputField, { name: "username" }),
+	        _react2.default.createElement(InputField, { name: "password" }),
+	        _react2.default.createElement(LoginButton, null)
+	      );
+	    }
+	  }]);
+
+	  return LoginModal;
+	}(_tb_modal2.default);
+
+	exports.default = LoginModal;
+
+
+	var CloseButton = function CloseButton(props) {
+	  return _react2.default.createElement(
+	    'button',
+	    { onClick: props.close, className: "tb-modal-close-button" },
+	    'x'
+	  );
+	};
+
+	var InputField = function InputField(props) {
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement('input', { onChange: props.reportChange, name: props.name, placeholder: props.placeholder })
+	  );
+	};
+
+	var LoginButton = function LoginButton(props) {
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(
+	      'button',
+	      null,
+	      'Login'
+	    )
+	  );
+	};
+
+	var Loading = function Loading() {
+	  return _react2.default.createElement(
+	    'div',
+	    { className: "modal-sign loading-sign" },
+	    _react2.default.createElement(
+	      'i',
+	      { className: 'material-icons md-120' },
+	      'cloud_download'
+	    )
+	  );
+	};
+
+	var Placeholder = function Placeholder() {
+	  return _react2.default.createElement(
+	    'div',
+	    { className: "modal-sign" },
+	    _react2.default.createElement(
+	      'i',
+	      { className: 'material-icons md-120' },
+	      'info'
+	    ),
+	    _react2.default.createElement(
+	      'p',
+	      null,
+	      'No data downloaded'
+	    )
+	  );
+	};
+
+/***/ }),
+/* 218 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _tb_modal = __webpack_require__(216);
+
+	var _tb_modal2 = _interopRequireDefault(_tb_modal);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var InfoModal = function (_Modal) {
+	  _inherits(InfoModal, _Modal);
+
+	  function InfoModal() {
+	    _classCallCheck(this, InfoModal);
+
+	    return _possibleConstructorReturn(this, (InfoModal.__proto__ || Object.getPrototypeOf(InfoModal)).apply(this, arguments));
+	  }
+
+	  _createClass(InfoModal, [{
+	    key: 'content',
+	    value: function content(props) {
+	      var _this2 = this;
+
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(CloseButton, { close: function close() {
+	            return _this2.close();
+	          } }),
+	        'This is a to-do app...'
+	      );
+	    }
+	  }]);
+
+	  return InfoModal;
+	}(_tb_modal2.default);
+
+	exports.default = InfoModal;
+
+
+	var CloseButton = function CloseButton(props) {
+	  return _react2.default.createElement(
+	    'button',
+	    { onClick: props.close, className: "tb-modal-close-button" },
+	    'x'
+	  );
+	};
+
+/***/ }),
+/* 219 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(217);
+	var content = __webpack_require__(220);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(222)(content, {});
+	var update = __webpack_require__(225)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -23726,14 +23957,14 @@
 	}
 
 /***/ }),
-/* 217 */
+/* 220 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(218)();
+	exports = module.exports = __webpack_require__(221)();
 	// imports
-	exports.i(__webpack_require__(219), "");
-	exports.i(__webpack_require__(220), "");
-	exports.i(__webpack_require__(221), "");
+	exports.i(__webpack_require__(222), "");
+	exports.i(__webpack_require__(223), "");
+	exports.i(__webpack_require__(224), "");
 
 	// module
 	exports.push([module.id, "\n", ""]);
@@ -23742,7 +23973,7 @@
 
 
 /***/ }),
-/* 218 */
+/* 221 */
 /***/ (function(module, exports) {
 
 	/*
@@ -23798,38 +24029,38 @@
 
 
 /***/ }),
-/* 219 */
+/* 222 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(218)();
+	exports = module.exports = __webpack_require__(221)();
 	// imports
 
 
 	// module
-	exports.push([module.id, ".tb-modal {\n  background-color: beige;\n  z-index: 21;\n  border-radius: 3px;\n  position: absolute;\n  animation: tbModalAppear 0.4s forwards;\n  box-shadow: 0 0 10px black;\n}\n\n.tb-modal-background {\n  position: fixed;\n  top: 0;\n  height: 100vh;\n  left: 0;\n  width: 100%;\n  background-color: blue;\n  opacity: 0.3;\n  z-index: 20;\n  animation: tbModalBackgroundAppear 0.4s forwards;\n}\n\n.tb-modal-content-container {\n  margin: 20px;\n}\n\n@keyframes tbModalAppear {\n  0% {opacity: 0; transform: translateY(-50vh);}\n  80% { transform: translateY(20vh);}\n  100% {opacity: 1; transform: translateY(0vh);}\n}\n\n@keyframes tbModalBackgroundAppear {\n  0% {opacity: 0;}\n  100% {opacity: 0.3;}\n}\n\n.tb-modal-leave {\n  animation: tbModalLeave 0.5s forwards;\n}\n\n@keyframes tbModalLeave {\n  0% {opacity: 1; transform: translateY(10vh);}\n  20% { transform: translateY(20vh);}\n  100% {opacity: 0; transform: translateY(-50vh);}\n}\n\n.tb-modal-background-leave {\n  animation: tbModalBackgroundLeave 0.5s forwards;\n}\n\n@keyframes tbModalBackgroundLeave {\n  0% {opacity: 0.5;}\n  100% {opacity: 0;}\n}\n\n.tb-modal-close-button {\n  float: right;\n}\n", ""]);
+	exports.push([module.id, ".tb-modal {\n  background-color: beige;\n  z-index: 21;\n  border-radius: 3px;\n  position: absolute;\n  animation: tbModalAppear 0.4s forwards;\n  box-shadow: 0 0 10px black;\n}\n\n.tb-modal-background {\n  position: fixed;\n  top: 0;\n  height: 100vh;\n  left: 0;\n  width: 100%;\n  background-color: blue;\n  opacity: 0.3;\n  z-index: 20;\n  animation: tbModalBackgroundAppear 0.4s forwards;\n}\n\n.tb-modal-content-container {\n  margin: 20px;\n}\n\n@keyframes tbModalAppear {\n  0% {opacity: 0; transform: translateY(0vh);}\n  80% { transform: translateY(30vh);}\n  100% {opacity: 1; transform: translateY(20vh);}\n}\n\n@keyframes tbModalBackgroundAppear {\n  0% {opacity: 0;}\n  100% {opacity: 0.3;}\n}\n\n.tb-modal-leave {\n  animation: tbModalLeave 0.5s forwards;\n}\n\n@keyframes tbModalLeave {\n  0% {opacity: 1; transform: translateY(20vh);}\n  20% { transform: translateY(30vh);}\n  100% {opacity: 0; transform: translateY(-50vh);}\n}\n\n.tb-modal-background-leave {\n  animation: tbModalBackgroundLeave 0.5s forwards;\n}\n\n@keyframes tbModalBackgroundLeave {\n  0% {opacity: 0.5;}\n  100% {opacity: 0;}\n}\n\n.tb-modal-close-button {\n  float: right;\n}\n", ""]);
 
 	// exports
 
 
 /***/ }),
-/* 220 */
+/* 223 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(218)();
+	exports = module.exports = __webpack_require__(221)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "button {\n  color: #5bc0de;\n  padding: 10px;\n  background-color: white;\n  box-shadow: 0px 0px 5px blue;\n  border: 1px solid #5bc0de;\n  border-radius: 3px;\n  cursor: pointer;\n  font-family: 'Bangers', cursive;\n}\n\nbutton:focus {\n  outline:0;\n}\n\nbutton:active {\n  box-shadow: 0px 0px 10px blue;\n}\n", ""]);
+	exports.push([module.id, "button {\n  color: #5bc0de;\n  padding: 10px;\n  background-color: white;\n  box-shadow: 0px 0px 5px blue;\n  border: 1px solid #5bc0de;\n  border-radius: 3px;\n  cursor: pointer;\n  font-family: 'Bangers', cursive;\n  margin: 0;\n}\n\nbutton:focus {\n  outline:0;\n}\n\nbutton:active {\n  box-shadow: 0px 0px 10px blue;\n}\n", ""]);
 
 	// exports
 
 
 /***/ }),
-/* 221 */
+/* 224 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(218)();
+	exports = module.exports = __webpack_require__(221)();
 	// imports
 
 
@@ -23840,7 +24071,7 @@
 
 
 /***/ }),
-/* 222 */
+/* 225 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*
@@ -24092,16 +24323,16 @@
 
 
 /***/ }),
-/* 223 */
+/* 226 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(224);
+	var content = __webpack_require__(227);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(222)(content, {});
+	var update = __webpack_require__(225)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -24118,14 +24349,14 @@
 	}
 
 /***/ }),
-/* 224 */
+/* 227 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(218)();
+	exports = module.exports = __webpack_require__(221)();
 	// imports
 	exports.i(__webpack_require__(228), "");
-	exports.i(__webpack_require__(225), "");
-	exports.i(__webpack_require__(226), "");
+	exports.i(__webpack_require__(230), "");
+	exports.i(__webpack_require__(229), "");
 
 	// module
 	exports.push([module.id, ".app-container {\n\n}\n", ""]);
@@ -24134,24 +24365,24 @@
 
 
 /***/ }),
-/* 225 */
+/* 228 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(218)();
+	exports = module.exports = __webpack_require__(221)();
 	// imports
 
 
 	// module
-	exports.push([module.id, ".welcome-container {\n  text-align: center;\n  position: absolute;\n  width: 30%;\n  left: 35%;\n  top: 20vh;\n  background-color: white;\n  border-radius: 3px;\n  box-shadow: 0 0 10px black;\n}\n\n.welcome-title {\n  color: #5bc0de;\n}\n", ""]);
+	exports.push([module.id, "body {\n  padding: 0;\n  margin: 0;\n}\n\n.home-background {\n  z-index: -1;\n  position: fixed;\n  margin: 0;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100vh;\n  background: url(\"/static/background.jpg\");\n  background-repeat: no-repeat;\n  background-size: cover;\n}\n\n.home-background::after {\n  opacity: 0.55;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  content: \"\";\n  position: absolute;\n  background-color: blue;\n}\n", ""]);
 
 	// exports
 
 
 /***/ }),
-/* 226 */
+/* 229 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(218)();
+	exports = module.exports = __webpack_require__(221)();
 	// imports
 
 
@@ -24162,37 +24393,15 @@
 
 
 /***/ }),
-/* 227 */
+/* 230 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var Background = function Background(props) {
-	  return _react2.default.createElement("div", { className: "home-background" });
-	};
-
-	exports.default = Background;
-
-/***/ }),
-/* 228 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(218)();
+	exports = module.exports = __webpack_require__(221)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "body {\n  padding: 0;\n  margin: 0;\n}\n\n.home-background {\n  z-index: -1;\n  position: fixed;\n  margin: 0;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100vh;\n  background-color: beige;\n}\n\n.home-background::after {\n  opacity: 0.15;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  content: \"\";\n  position: absolute;\n  background: url(\"/static/background.jpg\");\n  background-repeat: no-repeat;\n  background-size: cover;\n}\n", ""]);
+	exports.push([module.id, ".welcome-container {\n  text-align: center;\n  position: absolute;\n  width: 40%;\n  left: 30%;\n  top: 20vh;\n  background-color: white;\n  border: 1px solid black;\n  border-radius: 3px;\n  box-shadow: 0 0 20px white;\n}\n\n.welcome-title {\n  color: #5bc0de;\n  margin-bottom: 20px;\n}\n\n.welcome-intro {\n  color: #5bc0de;\n  margin-bottom: 20px;\n}\n\n.login-button {\n  width: 100px;\n  margin: 10px;\n  opacity: 0.8;\n}\n\n.login-button:hover {\n  opacity: 1;\n}\n\n.signup-button {\n  width: 100px;\n  margin: 0 10px;\n  opacity: 0.8;\n}\n\n.signup-button:hover {\n  opacity: 1;\n}\n\n.read-button {\n  width: 210px;\n  margin: 0 10px;\n  margin-bottom: 25px;\n  opacity: 0.8;\n}\n\n.read-button:hover {\n  opacity: 1;\n}\n", ""]);
 
 	// exports
 

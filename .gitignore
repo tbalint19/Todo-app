@@ -1,2 +1,5 @@
 todo-app-environ
 node_modules
+db_config.json
+__pycache__
+migrations

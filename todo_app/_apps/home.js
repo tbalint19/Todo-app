@@ -23125,18 +23125,20 @@
 	var stateTree = {
 	  state: {
 	    view: {
-	      main: "base",
+	      main: "login",
 	      modal: null
 	    },
-	    isFetchingGithub: false,
-	    githubDataPresent: false
+	    isWaiting: false
 	  },
 
 	  data: {
-	    welcome: "world",
-	    githubData: {
-	      login: "",
-	      avatar_url: ""
+	    login: {
+	      name: "",
+	      password: ""
+	    },
+	    signup: {
+	      name: "",
+	      password: ""
 	    }
 	  }
 	};
@@ -23226,11 +23228,11 @@
 
 	var _view_dependencies2 = _interopRequireDefault(_view_dependencies);
 
-	var _component = __webpack_require__(212);
+	var _component = __webpack_require__(228);
 
 	var _component2 = _interopRequireDefault(_component);
 
-	var _component3 = __webpack_require__(214);
+	var _component3 = __webpack_require__(229);
 
 	var _component4 = _interopRequireDefault(_component3);
 
@@ -23300,113 +23302,7 @@
 	exports.default = ViewDependencies;
 
 /***/ }),
-/* 212 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _container = __webpack_require__(213);
-
-	var _container2 = _interopRequireDefault(_container);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var HelloWorld = function (_Container) {
-	  _inherits(HelloWorld, _Container);
-
-	  function HelloWorld() {
-	    _classCallCheck(this, HelloWorld);
-
-	    return _possibleConstructorReturn(this, (HelloWorld.__proto__ || Object.getPrototypeOf(HelloWorld)).apply(this, arguments));
-	  }
-
-	  _createClass(HelloWorld, [{
-	    key: 'reportClick',
-	    value: function reportClick() {
-	      this.dispatch({ type: "MODAL_OPENED", modal: "exampleModal" });
-	    }
-	  }, {
-	    key: 'reportChange',
-	    value: function reportChange(event) {
-	      this.dispatch({ type: "INPUT_FIELD_CHANGED", value: event.target.value });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var _this2 = this;
-
-	      var value = this.props.data.welcome;
-	      return _react2.default.createElement(
-	        'div',
-	        { className: "welcome-container" },
-	        _react2.default.createElement(Title, {
-	          value: value }),
-	        _react2.default.createElement(Controller, {
-	          value: value,
-	          reportClick: function reportClick() {
-	            return _this2.reportClick();
-	          },
-	          reportChange: function reportChange(event) {
-	            return _this2.reportChange(event);
-	          } })
-	      );
-	    }
-	  }]);
-
-	  return HelloWorld;
-	}(_container2.default);
-
-	exports.default = HelloWorld;
-
-
-	var Title = function Title(props) {
-	  return _react2.default.createElement(
-	    'h1',
-	    { className: "welcome-title" },
-	    'Hello ',
-	    props.value,
-	    '!'
-	  );
-	};
-
-	var Controller = function Controller(props) {
-	  return _react2.default.createElement(
-	    'div',
-	    null,
-	    _react2.default.createElement(
-	      'p',
-	      null,
-	      _react2.default.createElement('input', { className: "welcome-input", onChange: props.reportChange, value: props.value })
-	    ),
-	    _react2.default.createElement(
-	      'p',
-	      null,
-	      _react2.default.createElement(
-	        'button',
-	        { className: "welcome-button", onClick: props.reportClick },
-	        'Open modal'
-	      )
-	    )
-	  );
-	};
-
-/***/ }),
+/* 212 */,
 /* 213 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23460,148 +23356,7 @@
 	exports.default = Container;
 
 /***/ }),
-/* 214 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _tb_modal = __webpack_require__(215);
-
-	var _tb_modal2 = _interopRequireDefault(_tb_modal);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var ExampleModal = function (_Modal) {
-	  _inherits(ExampleModal, _Modal);
-
-	  function ExampleModal() {
-	    _classCallCheck(this, ExampleModal);
-
-	    return _possibleConstructorReturn(this, (ExampleModal.__proto__ || Object.getPrototypeOf(ExampleModal)).apply(this, arguments));
-	  }
-
-	  _createClass(ExampleModal, [{
-	    key: 'fetchFreshData',
-	    value: function fetchFreshData() {
-	      var request = {
-	        method: "GET",
-	        destination: "https://api.github.com/users",
-	        action: { type: "GITHUB_DATA_ARRIVED" }
-	      };
-	      this.JSONtransfer(request);
-	      this.dispatch({ type: "GITHUB_DATA_REQUESTED" });
-	    }
-	  }, {
-	    key: 'content',
-	    value: function content(props) {
-	      var _this2 = this;
-
-	      var user = props.data.githubData;
-	      var isFetchingGithub = props.state.isFetchingGithub;
-	      var githubDataPresent = props.state.githubDataPresent;
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(CloseButton, { close: function close() {
-	            return _this2.close();
-	          } }),
-	        _react2.default.createElement(
-	          'div',
-	          { className: "content-container" },
-	          githubDataPresent ? _react2.default.createElement(GithubContent, { user: user }) : isFetchingGithub ? _react2.default.createElement(Loading, null) : _react2.default.createElement(Placeholder, null)
-	        ),
-	        _react2.default.createElement(GithubButton, { fetchFreshData: function fetchFreshData() {
-	            return _this2.fetchFreshData();
-	          }, disabled: isFetchingGithub })
-	      );
-	    }
-	  }]);
-
-	  return ExampleModal;
-	}(_tb_modal2.default);
-
-	exports.default = ExampleModal;
-
-
-	var CloseButton = function CloseButton(props) {
-	  return _react2.default.createElement(
-	    'button',
-	    { onClick: props.close, className: "tb-modal-close-button" },
-	    'x'
-	  );
-	};
-
-	var GithubContent = function GithubContent(props) {
-	  return _react2.default.createElement(
-	    'div',
-	    null,
-	    _react2.default.createElement('img', { className: "modal-picture", src: props.user.avatar_url, height: "100", width: "100" }),
-	    _react2.default.createElement(
-	      'p',
-	      { className: "modal-username" },
-	      props.user.login
-	    )
-	  );
-	};
-
-	var Loading = function Loading() {
-	  return _react2.default.createElement(
-	    'div',
-	    { className: "modal-sign loading-sign" },
-	    _react2.default.createElement(
-	      'i',
-	      { className: 'material-icons md-120' },
-	      'cloud_download'
-	    )
-	  );
-	};
-
-	var Placeholder = function Placeholder() {
-	  return _react2.default.createElement(
-	    'div',
-	    { className: "modal-sign" },
-	    _react2.default.createElement(
-	      'i',
-	      { className: 'material-icons md-120' },
-	      'info'
-	    ),
-	    _react2.default.createElement(
-	      'p',
-	      null,
-	      'No data downloaded'
-	    )
-	  );
-	};
-
-	var GithubButton = function GithubButton(props) {
-	  return _react2.default.createElement(
-	    'div',
-	    { className: "github-button-container" },
-	    _react2.default.createElement(
-	      'button',
-	      { onClick: props.fetchFreshData, disabled: props.disabled },
-	      'Get fresh data from github!'
-	    )
-	  );
-	};
-
-/***/ }),
+/* 214 */,
 /* 215 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24134,31 +23889,19 @@
 
 	exports = module.exports = __webpack_require__(218)();
 	// imports
-	exports.i(__webpack_require__(225), "");
-	exports.i(__webpack_require__(226), "");
+	exports.i(__webpack_require__(230), "");
+	exports.i(__webpack_require__(227), "");
 
 	// module
-	exports.push([module.id, "body {\n  background-color: beige;\n}\n\n.app-container {\n  \n}\n", ""]);
+	exports.push([module.id, "body {\n  background-color: beige;\n}\n\n.app-container {\n\n}\n", ""]);
 
 	// exports
 
 
 /***/ }),
-/* 225 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(218)();
-	// imports
-
-
-	// module
-	exports.push([module.id, ".welcome-container {\n  text-align: center;\n  position: absolute;\n  width: 30%;\n  left: 35%;\n  top: 20vh;\n  background-color: white;\n  border-radius: 3px;\n  box-shadow: 0 0 10px black;\n}\n\n.welcome-title {\n  color: #5bc0de;\n}\n", ""]);
-
-	// exports
-
-
-/***/ }),
-/* 226 */
+/* 225 */,
+/* 226 */,
+/* 227 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(218)();
@@ -24167,6 +23910,269 @@
 
 	// module
 	exports.push([module.id, ".github-button-container {\n  text-align: center;\n}\n\n.content-container {\n  text-align: center;\n  height: 200px;\n  padding-top: 40px;\n}\n\n.material-icons.md-120 {\n  font-size: 120px;\n}\n\n.modal-sign {\n  opacity: 0.2  ;\n  color: blue;\n}\n\n.loading-sign {\n  animation: loading 1.5s;\n  animation-iteration-count: infinite;\n}\n\n@keyframes loading {\n  0% {transform: translateY(0);}\n  100% {transform: translateY(30px);}\n}\n\n.modal-username {\n  color: blue;\n  font-family: 'Montserrat', cursive;\n}\n\n.modal-picture {\n  border: 3px solid blue;\n  border-radius: 3px;\n}\n", ""]);
+
+	// exports
+
+
+/***/ }),
+/* 228 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _container = __webpack_require__(213);
+
+	var _container2 = _interopRequireDefault(_container);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var HelloWorld = function (_Container) {
+	  _inherits(HelloWorld, _Container);
+
+	  function HelloWorld() {
+	    _classCallCheck(this, HelloWorld);
+
+	    return _possibleConstructorReturn(this, (HelloWorld.__proto__ || Object.getPrototypeOf(HelloWorld)).apply(this, arguments));
+	  }
+
+	  _createClass(HelloWorld, [{
+	    key: 'reportClick',
+	    value: function reportClick() {
+	      this.dispatch({ type: "MODAL_OPENED", modal: "exampleModal" });
+	    }
+	  }, {
+	    key: 'reportChange',
+	    value: function reportChange(event) {
+	      this.dispatch({ type: "INPUT_FIELD_CHANGED", value: event.target.value });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+
+	      var value = this.props.data.welcome;
+	      return _react2.default.createElement(
+	        'div',
+	        { className: "welcome-container" },
+	        _react2.default.createElement(Title, {
+	          value: value }),
+	        _react2.default.createElement(Controller, {
+	          value: value,
+	          reportClick: function reportClick() {
+	            return _this2.reportClick();
+	          },
+	          reportChange: function reportChange(event) {
+	            return _this2.reportChange(event);
+	          } })
+	      );
+	    }
+	  }]);
+
+	  return HelloWorld;
+	}(_container2.default);
+
+	exports.default = HelloWorld;
+
+
+	var Title = function Title(props) {
+	  return _react2.default.createElement(
+	    'h1',
+	    { className: "welcome-title" },
+	    'Hello ',
+	    props.value,
+	    '!'
+	  );
+	};
+
+	var Controller = function Controller(props) {
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(
+	      'p',
+	      null,
+	      _react2.default.createElement('input', { className: "welcome-input", onChange: props.reportChange, value: props.value })
+	    ),
+	    _react2.default.createElement(
+	      'p',
+	      null,
+	      _react2.default.createElement(
+	        'button',
+	        { className: "welcome-button", onClick: props.reportClick },
+	        'Open modal'
+	      )
+	    )
+	  );
+	};
+
+/***/ }),
+/* 229 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _tb_modal = __webpack_require__(215);
+
+	var _tb_modal2 = _interopRequireDefault(_tb_modal);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ExampleModal = function (_Modal) {
+	  _inherits(ExampleModal, _Modal);
+
+	  function ExampleModal() {
+	    _classCallCheck(this, ExampleModal);
+
+	    return _possibleConstructorReturn(this, (ExampleModal.__proto__ || Object.getPrototypeOf(ExampleModal)).apply(this, arguments));
+	  }
+
+	  _createClass(ExampleModal, [{
+	    key: 'fetchFreshData',
+	    value: function fetchFreshData() {
+	      var request = {
+	        method: "GET",
+	        destination: "https://api.github.com/users",
+	        action: { type: "GITHUB_DATA_ARRIVED" }
+	      };
+	      this.JSONtransfer(request);
+	      this.dispatch({ type: "GITHUB_DATA_REQUESTED" });
+	    }
+	  }, {
+	    key: 'content',
+	    value: function content(props) {
+	      var _this2 = this;
+
+	      var user = props.data.githubData;
+	      var isFetchingGithub = props.state.isFetchingGithub;
+	      var githubDataPresent = props.state.githubDataPresent;
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(CloseButton, { close: function close() {
+	            return _this2.close();
+	          } }),
+	        _react2.default.createElement(
+	          'div',
+	          { className: "content-container" },
+	          githubDataPresent ? _react2.default.createElement(GithubContent, { user: user }) : isFetchingGithub ? _react2.default.createElement(Loading, null) : _react2.default.createElement(Placeholder, null)
+	        ),
+	        _react2.default.createElement(GithubButton, { fetchFreshData: function fetchFreshData() {
+	            return _this2.fetchFreshData();
+	          }, disabled: isFetchingGithub })
+	      );
+	    }
+	  }]);
+
+	  return ExampleModal;
+	}(_tb_modal2.default);
+
+	exports.default = ExampleModal;
+
+
+	var CloseButton = function CloseButton(props) {
+	  return _react2.default.createElement(
+	    'button',
+	    { onClick: props.close, className: "tb-modal-close-button" },
+	    'x'
+	  );
+	};
+
+	var GithubContent = function GithubContent(props) {
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement('img', { className: "modal-picture", src: props.user.avatar_url, height: "100", width: "100" }),
+	    _react2.default.createElement(
+	      'p',
+	      { className: "modal-username" },
+	      props.user.login
+	    )
+	  );
+	};
+
+	var Loading = function Loading() {
+	  return _react2.default.createElement(
+	    'div',
+	    { className: "modal-sign loading-sign" },
+	    _react2.default.createElement(
+	      'i',
+	      { className: 'material-icons md-120' },
+	      'cloud_download'
+	    )
+	  );
+	};
+
+	var Placeholder = function Placeholder() {
+	  return _react2.default.createElement(
+	    'div',
+	    { className: "modal-sign" },
+	    _react2.default.createElement(
+	      'i',
+	      { className: 'material-icons md-120' },
+	      'info'
+	    ),
+	    _react2.default.createElement(
+	      'p',
+	      null,
+	      'No data downloaded'
+	    )
+	  );
+	};
+
+	var GithubButton = function GithubButton(props) {
+	  return _react2.default.createElement(
+	    'div',
+	    { className: "github-button-container" },
+	    _react2.default.createElement(
+	      'button',
+	      { onClick: props.fetchFreshData, disabled: props.disabled },
+	      'Get fresh data from github!'
+	    )
+	  );
+	};
+
+/***/ }),
+/* 230 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(218)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".welcome-container {\n  text-align: center;\n  position: absolute;\n  width: 30%;\n  left: 35%;\n  top: 20vh;\n  background-color: white;\n  border-radius: 3px;\n  box-shadow: 0 0 10px black;\n}\n\n.welcome-title {\n  color: #5bc0de;\n}\n", ""]);
 
 	// exports
 

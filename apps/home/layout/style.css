@@ -1,10 +1,10 @@
-@import "./helloworld/style.css";
-@import "./examplemodal/style.css";
+@import "./login/style.css";
+@import "./signupmodal/style.css";
 
 body {
   background-color: beige;
 }
 
 .app-container {
-  
+
 }

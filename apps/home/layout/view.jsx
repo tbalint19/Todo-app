@@ -2,8 +2,8 @@ import React from 'react'
 
 import ViewDependencies from 'view_dependencies'
 
-import HelloWorld from './helloworld/component'
-import ExampleModal from './examplemodal/component'
+import Login from './login/component'
+import SignupModal from './signupmodal/component'
 
 class View extends React.Component{
 
@@ -19,10 +19,10 @@ class View extends React.Component{
         <ViewDependencies/>
 
         {/* Middle */}
-        <HelloWorld data={data} state={state} controller={controller}/>
+        <Login data={data} state={state} controller={controller}/>
 
         {/* Modals */}
-        {state.view.modal == "exampleModal" && <ExampleModal data={data} state={state} controller={controller}/>}
+        {state.view.modal == "exampleModal" && <SignupModal data={data} state={state} controller={controller}/>}
 
       </div>
 

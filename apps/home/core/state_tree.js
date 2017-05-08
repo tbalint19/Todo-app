@@ -1,18 +1,20 @@
 const stateTree = {
   state: {
     view: {
-      main: "base",
+      main: "login",
       modal: null
     },
-    isFetchingGithub: false,
-    githubDataPresent: false
+    isWaiting: false
   },
 
   data: {
-    welcome: "world",
-    githubData: {
-      login: "",
-      avatar_url: ""
+    login: {
+      name: "",
+      password: ""
+    },
+    signup: {
+      name: "",
+      password: ""
     }
   }
 }

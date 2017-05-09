@@ -21853,11 +21853,17 @@
 	      case "MAIN_CHANGE":
 	        nextState = (0, _select_reducers.mainChangeReducer)(current, action);
 	        return nextState;
-	      case "GITHUB_DATA_REQUESTED":
-	        nextState = (0, _response_reducers.requestedGithubDataReducer)(current, action);
+	      case "LOGIN_REQUESTED":
+	        nextState = (0, _response_reducers.requestedLoginReducer)(current, action);
 	        return nextState;
-	      case "GITHUB_DATA_ARRIVED":
-	        nextState = (0, _response_reducers.arrivedGithubDataReducer)(current, action);
+	      case "LOGIN_RESPONSE":
+	        nextState = (0, _response_reducers.loginResponseReducer)(current, action);
+	        return nextState;
+	      case "SIGNUP_REQUESTED":
+	        nextState = (0, _response_reducers.requestedSignupReducer)(current, action);
+	        return nextState;
+	      case "SIGNUP_RESPONSE":
+	        nextState = (0, _response_reducers.signupResponseReducer)(current, action);
 	        return nextState;
 	      default:
 	        nextState = Object.assign({}, current);
@@ -22909,7 +22915,7 @@
 /* 204 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -22918,9 +22924,8 @@
 
 	var createApiController = function createApiController(controller) {
 
-	  var URL = "";
-	  // const URL = "/"
-	  // const csrftoken = Cookies.get('csrftoken')
+	  var URL = "/";
+	  var csrftoken = Cookies.get('csrftoken');
 
 	  var JSONtransfer = function JSONtransfer(req) {
 	    // req.method => "POST"
@@ -22930,7 +22935,7 @@
 	    var request = new XMLHttpRequest();
 	    request.open(req.method, URL + req.destination, true);
 	    if (req.method == "POST") {
-	      // request.setRequestHeader("X-CSRFToken", csrftoken)
+	      request.setRequestHeader("X-CSRFToken", csrftoken);
 	      request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 	    }
 	    request.onreadystatechange = function () {
@@ -23122,7 +23127,8 @@
 	var stateTree = {
 	  state: {
 	    interface: "start",
-	    isWaiting: false
+	    loginSuccessful: null,
+	    signupSuccessful: null
 	  },
 
 	  data: {
@@ -23142,21 +23148,27 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	var requestedGithubDataReducer = exports.requestedGithubDataReducer = function requestedGithubDataReducer(current, action) {
+	var requestedLoginReducer = exports.requestedLoginReducer = function requestedLoginReducer(current, action) {
 	  var nextState = Object.assign({}, current);
-	  nextState.state.githubDataPresent = false;
-	  nextState.state.isFetchingGithub = true;
 	  return nextState;
 	};
 
-	var arrivedGithubDataReducer = exports.arrivedGithubDataReducer = function arrivedGithubDataReducer(current, action) {
+	var loginResponseReducer = exports.loginResponseReducer = function loginResponseReducer(current, action) {
 	  var nextState = Object.assign({}, current);
-	  nextState.state.githubDataPresent = true;
-	  nextState.state.isFetchingGithub = false;
-	  var random = Math.floor(Math.random() * 10);
-	  var user = action.data[random];
-	  nextState.data.githubData.login = user.login;
-	  nextState.data.githubData.avatar_url = user.avatar_url;
+	  var response = action.data;
+	  nextState.state.loginSuccessful = response["authenticated"];
+	  return nextState;
+	};
+
+	var requestedSignupReducer = exports.requestedSignupReducer = function requestedSignupReducer(current, action) {
+	  var nextState = Object.assign({}, current);
+	  return nextState;
+	};
+
+	var signupResponseReducer = exports.signupResponseReducer = function signupResponseReducer(current, action) {
+	  var nextState = Object.assign({}, current);
+	  var response = action.data;
+	  nextState.state.signupSuccessful = response["created"];
 	  return nextState;
 	};
 
@@ -23376,10 +23388,18 @@
 	    }
 	  }, {
 	    key: 'login',
-	    value: function login() {}
+	    value: function login(username, password) {
+	      var request = { method: "POST", destination: "api/login", data: { username: username, password: password }, action: { type: "LOGIN_RESPONSE" } };
+	      this.JSONtransfer(request);
+	      this.dispatch({ type: "LOGIN_REQUESTED" });
+	    }
 	  }, {
 	    key: 'signup',
-	    value: function signup() {}
+	    value: function signup(username, password) {
+	      var request = { method: "POST", destination: "api/signup", data: { username: username, password: password }, action: { type: "SIGNUP_RESPONSE" } };
+	      this.JSONtransfer(request);
+	      this.dispatch({ type: "SIGNUP_REQUESTED" });
+	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
@@ -23388,6 +23408,8 @@
 	      var iface = this.props.state.interface;
 	      var username = this.props.data.username;
 	      var password = this.props.data.password;
+	      var loginSuccessful = this.props.state.loginSuccessful;
+	      var signupSuccessful = this.props.state.signupSuccessful;
 	      return _react2.default.createElement(
 	        'div',
 	        { className: "main-container" },
@@ -23408,6 +23430,15 @@
 	          'div',
 	          { className: "interface", key: iface },
 	          _react2.default.createElement(Title, { text: iface == "login" ? "Login" : "Sign up" }),
+	          _react2.default.createElement(
+	            'div',
+	            { className: "action-interface-placeholder" },
+	            signupSuccessful == false && _react2.default.createElement(Err, { text: "Already occupied" }),
+	            signupSuccessful && _react2.default.createElement(Success, { text: "You can log in now!" }),
+	            loginSuccessful == false && _react2.default.createElement(Err, { text: "Invalid credentials" }),
+	            loginSuccessful && _react2.default.createElement(Success, { text: "Please wait..." }),
+	            loginSuccessful && window.location("/list")
+	          ),
 	          _react2.default.createElement(InputField, { action: function action(event) {
 	              return _this2.changeInput(event);
 	            }, username: username, password: password }),
@@ -23416,9 +23447,9 @@
 	              return _this2.getBack();
 	            },
 	            action: iface == "login" ? function () {
-	              return _this2.login();
+	              return _this2.login(username, password);
 	            } : function () {
-	              return _this2.signup();
+	              return _this2.signup(username, password);
 	            },
 	            name: iface == "login" ? "Login" : "Sign up" })
 	        ),
@@ -23510,6 +23541,34 @@
 	      { className: "action-button", onClick: props.action },
 	      props.name
 	    )
+	  );
+	};
+
+	var Err = function Err(props) {
+	  return _react2.default.createElement(
+	    'p',
+	    null,
+	    _react2.default.createElement(
+	      'i',
+	      { className: 'material-icons' },
+	      'warning'
+	    ),
+	    '\xA0',
+	    props.text
+	  );
+	};
+
+	var Success = function Success(props) {
+	  return _react2.default.createElement(
+	    'p',
+	    null,
+	    _react2.default.createElement(
+	      'i',
+	      { className: 'material-icons' },
+	      'check_box'
+	    ),
+	    '\xA0',
+	    props.text
 	  );
 	};
 
@@ -24022,7 +24081,7 @@
 
 
 	// module
-	exports.push([module.id, ".main-container {\n  text-align: center;\n  position: absolute;\n  width: 34%;\n  left: 33%;\n  top: 20vh;\n  background-color: white;\n  border: 1px solid black;\n  border-radius: 3px;\n  box-shadow: 0 0 20px white;\n  height: 250px;\n}\n\n.welcome-title {\n  color: #5bc0de;\n  margin-bottom: 20px;\n}\n\n.welcome-intro {\n  color: #5bc0de;\n  margin-bottom: 20px;\n}\n\n.login-button {\n  width: 100px;\n  margin: 10px;\n  opacity: 0.8;\n}\n\n.login-button:hover {\n  opacity: 1;\n}\n\n.signup-button {\n  width: 100px;\n  margin: 0 10px;\n  opacity: 0.8;\n}\n\n.signup-button:hover {\n  opacity: 1;\n}\n\n.read-button {\n  width: 220px;\n  margin: 0 10px;\n  margin-bottom: 20px;\n  opacity: 0.8;\n}\n\n.read-button:hover {\n  opacity: 1;\n}\n\n.interface {\n  animation: appear 1.2s ease-out forwards;\n}\n\n@keyframes appear {\n  0% {opacity: 0;}\n  100% {opacity: 1;}\n}\n", ""]);
+	exports.push([module.id, ".main-container {\n  text-align: center;\n  position: absolute;\n  width: 34%;\n  left: 33%;\n  top: 20vh;\n  background-color: white;\n  border: 1px solid black;\n  border-radius: 3px;\n  box-shadow: 0 0 20px white;\n  height: 250px;\n}\n\n.welcome-title {\n  color: #5bc0de;\n  margin-bottom: 20px;\n}\n\n.welcome-intro {\n  color: #5bc0de;\n  margin-bottom: 20px;\n}\n\n.login-button {\n  width: 100px;\n  margin: 10px;\n  opacity: 0.8;\n}\n\n.login-button:hover {\n  opacity: 1;\n}\n\n.signup-button {\n  width: 100px;\n  margin: 0 10px;\n  opacity: 0.8;\n}\n\n.signup-button:hover {\n  opacity: 1;\n}\n\n.read-button {\n  width: 220px;\n  margin: 0 10px;\n  margin-bottom: 20px;\n  opacity: 0.8;\n}\n\n.read-button:hover {\n  opacity: 1;\n}\n\n.interface {\n  animation: appear 1.2s ease-out forwards;\n}\n\n@keyframes appear {\n  0% {opacity: 0;}\n  100% {opacity: 1;}\n}\n\n.action-interface-placeholder {\n  height: 20px;\n  color: blue;\n  font-family: 'Bangers', cursive;\n}\n", ""]);
 
 	// exports
 

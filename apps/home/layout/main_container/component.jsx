@@ -23,18 +23,24 @@ class MainContainer extends Container{
     this.dispatch({type: "INPUT_FIELD_CHANGED", input: event.target.name, value: event.target.value})
   }
 
-  login(){
-
+  login(username, password){
+    let request = {method: "POST", destination: "api/login", data: {username, password}, action: {type: "LOGIN_RESPONSE"}}
+    this.JSONtransfer(request)
+    this.dispatch({type: "LOGIN_REQUESTED"})
   }
 
-  signup(){
-
+  signup(username, password){
+    let request = {method: "POST", destination: "api/signup", data: {username, password}, action: {type: "SIGNUP_RESPONSE"}}
+    this.JSONtransfer(request)
+    this.dispatch({type: "SIGNUP_REQUESTED"})
   }
 
   render(){
     let iface = this.props.state.interface
     let username = this.props.data.username
     let password = this.props.data.password
+    let loginSuccessful = this.props.state.loginSuccessful
+    let signupSuccessful = this.props.state.signupSuccessful
     return (
       <div className={"main-container"}>
         {iface == "start" && <div className={"interface"} key={iface}>
@@ -44,10 +50,17 @@ class MainContainer extends Container{
         </div>}
         {(iface == "login" || iface == "signup") && <div className={"interface"} key={iface}>
           <Title text={iface == "login" ? "Login" : "Sign up"}/>
+          <div className={"action-interface-placeholder"}>
+            {signupSuccessful == false && <Err text={"Already occupied"}/>}
+            {signupSuccessful && <Success text={"You can log in now!"}/>}
+            {loginSuccessful == false && <Err text={"Invalid credentials"}/>}
+            {loginSuccessful && <Success text={"Please wait..."}/>}
+            {loginSuccessful && window.location("/list")}
+          </div>
           <InputField action={(event)=>this.changeInput(event)} username={username} password={password}/>
           <InputController
             getBack={()=>this.getBack()}
-            action={iface == "login" ? ()=> this.login() : ()=> this.signup()}
+            action={iface == "login" ? ()=> this.login(username, password) : ()=> this.signup(username, password)}
             name={iface == "login" ? "Login" : "Sign up"}/>
         </div>}
         {iface == "info" && <div className={"interface"} key={iface}>
@@ -93,4 +106,12 @@ const InputController = (props) => (
     <button className={"back-button"} onClick={props.getBack}>Back</button>
     {props.action && <button className={"action-button"} onClick={props.action}>{props.name}</button>}
   </p>
+)
+
+const Err = (props) => (
+  <p><i className="material-icons">warning</i>&nbsp;{props.text}</p>
+)
+
+const Success = (props) => (
+  <p><i className="material-icons">check_box</i>&nbsp;{props.text}</p>
 )

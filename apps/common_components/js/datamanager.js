@@ -2,9 +2,8 @@ const Cookies = require('./cookies')
 
 const createApiController = (controller) => {
 
-  const URL = ""
-  // const URL = "/"
-  // const csrftoken = Cookies.get('csrftoken')
+  const URL = "/"
+  const csrftoken = Cookies.get('csrftoken')
 
   const JSONtransfer = (req) => {
     // req.method => "POST"
@@ -14,7 +13,7 @@ const createApiController = (controller) => {
     const request = new XMLHttpRequest()
     request.open(req.method, URL + req.destination, true)
     if (req.method == "POST") {
-      // request.setRequestHeader("X-CSRFToken", csrftoken)
+      request.setRequestHeader("X-CSRFToken", csrftoken)
       request.setRequestHeader("Content-Type", "application/json;charset=UTF-8")
     }
     request.onreadystatechange = function() {

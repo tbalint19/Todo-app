@@ -1,8 +1,7 @@
 const stateTree = {
   state: {
     interface: "start",
-    loginSuccessful: null,
-    signupSuccessful: null
+    isWaiting: false
   },
 
   data: {

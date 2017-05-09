@@ -64,8 +64,8 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	__webpack_require__(219);
-	__webpack_require__(226);
+	__webpack_require__(215);
+	__webpack_require__(222);
 
 	var app = document.getElementById('app');
 
@@ -21850,11 +21850,8 @@
 	      case "INPUT_FIELD_CHANGED":
 	        nextState = (0, _input_reducers.userInputReducer)(current, action);
 	        return nextState;
-	      case "MODAL_OPENED":
-	        nextState = (0, _select_reducers.modalOpenReducer)(current, action);
-	        return nextState;
-	      case "MODAL_CLOSED":
-	        nextState = (0, _select_reducers.modalCloseReducer)(current, action);
+	      case "MAIN_CHANGE":
+	        nextState = (0, _select_reducers.mainChangeReducer)(current, action);
 	        return nextState;
 	      case "GITHUB_DATA_REQUESTED":
 	        nextState = (0, _response_reducers.requestedGithubDataReducer)(current, action);
@@ -23124,22 +23121,13 @@
 	});
 	var stateTree = {
 	  state: {
-	    view: {
-	      main: "login",
-	      modal: null
-	    },
+	    interface: "start",
 	    isWaiting: false
 	  },
 
 	  data: {
-	    login: {
-	      name: "",
-	      password: ""
-	    },
-	    signup: {
-	      name: "",
-	      password: ""
-	    }
+	    username: "",
+	    password: ""
 	  }
 	};
 
@@ -23181,15 +23169,11 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	var modalOpenReducer = exports.modalOpenReducer = function modalOpenReducer(current, action) {
+	var mainChangeReducer = exports.mainChangeReducer = function mainChangeReducer(current, action) {
 	  var nextState = Object.assign({}, current);
-	  nextState.state.view.modal = action.modal;
-	  return nextState;
-	};
-
-	var modalCloseReducer = exports.modalCloseReducer = function modalCloseReducer(current, action) {
-	  var nextState = Object.assign({}, current);
-	  nextState.state.view.modal = null;
+	  nextState.state.interface = action.interface;
+	  nextState.data.username = "";
+	  nextState.data.password = "";
 	  return nextState;
 	};
 
@@ -23204,7 +23188,12 @@
 	});
 	var userInputReducer = exports.userInputReducer = function userInputReducer(current, action) {
 	  var nextState = Object.assign({}, current);
-	  nextState.data.welcome = action.value.length <= 15 ? action.value : nextState.data.welcome;
+	  if (action.input == "username" && action.value.length < 11) {
+	    nextState.data.username = action.value;
+	  }
+	  if (action.input == "password" && action.value.length < 11) {
+	    nextState.data.password = action.value;
+	  }
 	  return nextState;
 	};
 
@@ -23236,18 +23225,6 @@
 
 	var _component4 = _interopRequireDefault(_component3);
 
-	var _component5 = __webpack_require__(215);
-
-	var _component6 = _interopRequireDefault(_component5);
-
-	var _component7 = __webpack_require__(217);
-
-	var _component8 = _interopRequireDefault(_component7);
-
-	var _component9 = __webpack_require__(218);
-
-	var _component10 = _interopRequireDefault(_component9);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -23276,10 +23253,7 @@
 	        { className: "app-container" },
 	        _react2.default.createElement(_view_dependencies2.default, null),
 	        _react2.default.createElement(_component2.default, null),
-	        _react2.default.createElement(_component4.default, { data: data, state: state, controller: controller }),
-	        state.view.modal == "signupModal" && _react2.default.createElement(_component6.default, { data: data, state: state, controller: controller }),
-	        state.view.modal == "loginModal" && _react2.default.createElement(_component8.default, { data: data, state: state, controller: controller }),
-	        state.view.modal == "infoModal" && _react2.default.createElement(_component10.default, { data: data, state: state, controller: controller })
+	        _react2.default.createElement(_component4.default, { data: data, state: state, controller: controller })
 	      );
 	    }
 	  }]);
@@ -23366,65 +23340,112 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Start = function (_Container) {
-	  _inherits(Start, _Container);
+	var MainContainer = function (_Container) {
+	  _inherits(MainContainer, _Container);
 
-	  function Start() {
-	    _classCallCheck(this, Start);
+	  function MainContainer() {
+	    _classCallCheck(this, MainContainer);
 
-	    return _possibleConstructorReturn(this, (Start.__proto__ || Object.getPrototypeOf(Start)).apply(this, arguments));
+	    return _possibleConstructorReturn(this, (MainContainer.__proto__ || Object.getPrototypeOf(MainContainer)).apply(this, arguments));
 	  }
 
-	  _createClass(Start, [{
+	  _createClass(MainContainer, [{
 	    key: 'getLogin',
 	    value: function getLogin() {
-	      this.dispatch({ type: "MODAL_OPENED", modal: "loginModal" });
+	      this.dispatch({ type: "MAIN_CHANGE", interface: "login" });
 	    }
 	  }, {
 	    key: 'getSignup',
 	    value: function getSignup() {
-	      this.dispatch({ type: "MODAL_OPENED", modal: "signupModal" });
+	      this.dispatch({ type: "MAIN_CHANGE", interface: "signup" });
 	    }
 	  }, {
 	    key: 'getInfo',
 	    value: function getInfo() {
-	      this.dispatch({ type: "MODAL_OPENED", modal: "infoModal" });
+	      this.dispatch({ type: "MAIN_CHANGE", interface: "info" });
 	    }
+	  }, {
+	    key: 'getBack',
+	    value: function getBack() {
+	      this.dispatch({ type: "MAIN_CHANGE", interface: "start" });
+	    }
+	  }, {
+	    key: 'changeInput',
+	    value: function changeInput(event) {
+	      this.dispatch({ type: "INPUT_FIELD_CHANGED", input: event.target.name, value: event.target.value });
+	    }
+	  }, {
+	    key: 'login',
+	    value: function login() {}
+	  }, {
+	    key: 'signup',
+	    value: function signup() {}
 	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
 
+	      var iface = this.props.state.interface;
+	      var username = this.props.data.username;
+	      var password = this.props.data.password;
 	      return _react2.default.createElement(
 	        'div',
-	        { className: "welcome-container" },
-	        _react2.default.createElement(Title, null),
-	        _react2.default.createElement(Intro, null),
-	        _react2.default.createElement(Controller, {
-	          getLogin: function getLogin() {
-	            return _this2.getLogin();
-	          },
-	          getSignup: function getSignup() {
-	            return _this2.getSignup();
-	          },
-	          getInfo: function getInfo() {
-	            return _this2.getInfo();
-	          } })
+	        { className: "main-container" },
+	        iface == "start" && _react2.default.createElement(
+	          'div',
+	          { className: "interface", key: iface },
+	          _react2.default.createElement(Title, { text: "Welcome to RoboTODO!" }),
+	          _react2.default.createElement(Intro, { text: "The most simple to-do app ever." }),
+	          _react2.default.createElement(Controller, { getLogin: function getLogin() {
+	              return _this2.getLogin();
+	            }, getSignup: function getSignup() {
+	              return _this2.getSignup();
+	            }, getInfo: function getInfo() {
+	              return _this2.getInfo();
+	            } })
+	        ),
+	        (iface == "login" || iface == "signup") && _react2.default.createElement(
+	          'div',
+	          { className: "interface", key: iface },
+	          _react2.default.createElement(Title, { text: iface == "login" ? "Login" : "Sign up" }),
+	          _react2.default.createElement(InputField, { action: function action(event) {
+	              return _this2.changeInput(event);
+	            }, username: username, password: password }),
+	          _react2.default.createElement(InputController, {
+	            getBack: function getBack() {
+	              return _this2.getBack();
+	            },
+	            action: iface == "login" ? function () {
+	              return _this2.login();
+	            } : function () {
+	              return _this2.signup();
+	            },
+	            name: iface == "login" ? "Login" : "Sign up" })
+	        ),
+	        iface == "info" && _react2.default.createElement(
+	          'div',
+	          { className: "interface", key: iface },
+	          _react2.default.createElement(Title, { text: "About" }),
+	          _react2.default.createElement(Intro, { text: "This is a to-do app..." }),
+	          _react2.default.createElement(InputController, { getBack: function getBack() {
+	              return _this2.getBack();
+	            } })
+	        )
 	      );
 	    }
 	  }]);
 
-	  return Start;
+	  return MainContainer;
 	}(_container2.default);
 
-	exports.default = Start;
+	exports.default = MainContainer;
 
 
 	var Title = function Title(props) {
 	  return _react2.default.createElement(
-	    'h1',
+	    'h3',
 	    { className: "welcome-title" },
-	    'Welcome to RoboTODO!'
+	    props.text
 	  );
 	};
 
@@ -23432,7 +23453,7 @@
 	  return _react2.default.createElement(
 	    'p',
 	    { className: "welcome-intro" },
-	    'The most simple to-do app ever.'
+	    props.text
 	  );
 	};
 
@@ -23462,6 +23483,32 @@
 	        { className: "read-button", onClick: props.getInfo },
 	        'Read more'
 	      )
+	    )
+	  );
+	};
+
+	var InputField = function InputField(props) {
+	  return _react2.default.createElement(
+	    'p',
+	    null,
+	    _react2.default.createElement('input', { onChange: props.action, name: "username", value: props.username, placeholder: "username" }),
+	    _react2.default.createElement('input', { onChange: props.action, name: "password", value: props.password, placeholder: "password" })
+	  );
+	};
+
+	var InputController = function InputController(props) {
+	  return _react2.default.createElement(
+	    'p',
+	    null,
+	    _react2.default.createElement(
+	      'button',
+	      { className: "back-button", onClick: props.getBack },
+	      'Back'
+	    ),
+	    props.action && _react2.default.createElement(
+	      'button',
+	      { className: "action-button", onClick: props.action },
+	      props.name
 	    )
 	  );
 	};
@@ -23523,424 +23570,13 @@
 /* 215 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _tb_modal = __webpack_require__(216);
-
-	var _tb_modal2 = _interopRequireDefault(_tb_modal);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var SignupModal = function (_Modal) {
-	  _inherits(SignupModal, _Modal);
-
-	  function SignupModal() {
-	    _classCallCheck(this, SignupModal);
-
-	    return _possibleConstructorReturn(this, (SignupModal.__proto__ || Object.getPrototypeOf(SignupModal)).apply(this, arguments));
-	  }
-
-	  _createClass(SignupModal, [{
-	    key: 'content',
-	    value: function content(props) {
-	      var _this2 = this;
-
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(CloseButton, { close: function close() {
-	            return _this2.close();
-	          } }),
-	        _react2.default.createElement(InputField, { name: "username" }),
-	        _react2.default.createElement(InputField, { name: "password" }),
-	        _react2.default.createElement(SignupButton, null)
-	      );
-	    }
-	  }]);
-
-	  return SignupModal;
-	}(_tb_modal2.default);
-
-	exports.default = SignupModal;
-
-
-	var CloseButton = function CloseButton(props) {
-	  return _react2.default.createElement(
-	    'button',
-	    { onClick: props.close, className: "tb-modal-close-button" },
-	    'x'
-	  );
-	};
-
-	var InputField = function InputField(props) {
-	  return _react2.default.createElement(
-	    'div',
-	    null,
-	    _react2.default.createElement('input', { onChange: props.reportChange, name: props.name, placeholder: props.placeholder })
-	  );
-	};
-
-	var SignupButton = function SignupButton(props) {
-	  return _react2.default.createElement(
-	    'div',
-	    null,
-	    _react2.default.createElement(
-	      'button',
-	      null,
-	      'Sign up'
-	    )
-	  );
-	};
-
-	var Loading = function Loading() {
-	  return _react2.default.createElement(
-	    'div',
-	    { className: "modal-sign loading-sign" },
-	    _react2.default.createElement(
-	      'i',
-	      { className: 'material-icons md-120' },
-	      'cloud_download'
-	    )
-	  );
-	};
-
-	var Placeholder = function Placeholder() {
-	  return _react2.default.createElement(
-	    'div',
-	    { className: "modal-sign" },
-	    _react2.default.createElement(
-	      'i',
-	      { className: 'material-icons md-120' },
-	      'info'
-	    ),
-	    _react2.default.createElement(
-	      'p',
-	      null,
-	      'No data downloaded'
-	    )
-	  );
-	};
-
-/***/ }),
-/* 216 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _container = __webpack_require__(214);
-
-	var _container2 = _interopRequireDefault(_container);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Modal = function (_Container) {
-	  _inherits(Modal, _Container);
-
-	  function Modal(props) {
-	    _classCallCheck(this, Modal);
-
-	    return _possibleConstructorReturn(this, (Modal.__proto__ || Object.getPrototypeOf(Modal)).call(this, props));
-	  }
-
-	  _createClass(Modal, [{
-	    key: 'content',
-	    value: function content() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        'Empty modal'
-	      );
-	    }
-	  }, {
-	    key: 'setStyle',
-	    value: function setStyle() {
-	      return {
-	        width: "40%",
-	        left: "30%"
-	      };
-	    }
-	  }, {
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      this.modalContent = this.content(this.props);
-	    }
-	  }, {
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      this.modal = document.getElementById("tb-modal");
-	      this.background = document.getElementById("tb-modal-background");
-	    }
-	  }, {
-	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps(nextProps) {
-	      this.modalContent = this.content(nextProps);
-	    }
-	  }, {
-	    key: 'close',
-	    value: function close() {
-	      var _this2 = this;
-
-	      this.modal.classList.add('tb-modal-leave');
-	      this.background.classList.add('tb-modal-background-leave');
-	      setTimeout(function () {
-	        _this2.dispatch({ type: "MODAL_CLOSED" });
-	      }, 500);
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'div',
-	          { id: "tb-modal", className: "tb-modal", style: this.setStyle() },
-	          _react2.default.createElement(
-	            'div',
-	            {
-	              id: "tb-modal-content-container",
-	              className: "tb-modal-content-container" },
-	            this.modalContent
-	          )
-	        ),
-	        _react2.default.createElement('div', { id: "tb-modal-background", className: "tb-modal-background" })
-	      );
-	    }
-	  }]);
-
-	  return Modal;
-	}(_container2.default);
-
-	exports.default = Modal;
-
-/***/ }),
-/* 217 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _tb_modal = __webpack_require__(216);
-
-	var _tb_modal2 = _interopRequireDefault(_tb_modal);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var LoginModal = function (_Modal) {
-	  _inherits(LoginModal, _Modal);
-
-	  function LoginModal() {
-	    _classCallCheck(this, LoginModal);
-
-	    return _possibleConstructorReturn(this, (LoginModal.__proto__ || Object.getPrototypeOf(LoginModal)).apply(this, arguments));
-	  }
-
-	  _createClass(LoginModal, [{
-	    key: 'content',
-	    value: function content(props) {
-	      var _this2 = this;
-
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(CloseButton, { close: function close() {
-	            return _this2.close();
-	          } }),
-	        _react2.default.createElement(InputField, { name: "username" }),
-	        _react2.default.createElement(InputField, { name: "password" }),
-	        _react2.default.createElement(LoginButton, null)
-	      );
-	    }
-	  }]);
-
-	  return LoginModal;
-	}(_tb_modal2.default);
-
-	exports.default = LoginModal;
-
-
-	var CloseButton = function CloseButton(props) {
-	  return _react2.default.createElement(
-	    'button',
-	    { onClick: props.close, className: "tb-modal-close-button" },
-	    'x'
-	  );
-	};
-
-	var InputField = function InputField(props) {
-	  return _react2.default.createElement(
-	    'div',
-	    null,
-	    _react2.default.createElement('input', { onChange: props.reportChange, name: props.name, placeholder: props.placeholder })
-	  );
-	};
-
-	var LoginButton = function LoginButton(props) {
-	  return _react2.default.createElement(
-	    'div',
-	    null,
-	    _react2.default.createElement(
-	      'button',
-	      null,
-	      'Login'
-	    )
-	  );
-	};
-
-	var Loading = function Loading() {
-	  return _react2.default.createElement(
-	    'div',
-	    { className: "modal-sign loading-sign" },
-	    _react2.default.createElement(
-	      'i',
-	      { className: 'material-icons md-120' },
-	      'cloud_download'
-	    )
-	  );
-	};
-
-	var Placeholder = function Placeholder() {
-	  return _react2.default.createElement(
-	    'div',
-	    { className: "modal-sign" },
-	    _react2.default.createElement(
-	      'i',
-	      { className: 'material-icons md-120' },
-	      'info'
-	    ),
-	    _react2.default.createElement(
-	      'p',
-	      null,
-	      'No data downloaded'
-	    )
-	  );
-	};
-
-/***/ }),
-/* 218 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _tb_modal = __webpack_require__(216);
-
-	var _tb_modal2 = _interopRequireDefault(_tb_modal);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var InfoModal = function (_Modal) {
-	  _inherits(InfoModal, _Modal);
-
-	  function InfoModal() {
-	    _classCallCheck(this, InfoModal);
-
-	    return _possibleConstructorReturn(this, (InfoModal.__proto__ || Object.getPrototypeOf(InfoModal)).apply(this, arguments));
-	  }
-
-	  _createClass(InfoModal, [{
-	    key: 'content',
-	    value: function content(props) {
-	      var _this2 = this;
-
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(CloseButton, { close: function close() {
-	            return _this2.close();
-	          } }),
-	        'This is a to-do app...'
-	      );
-	    }
-	  }]);
-
-	  return InfoModal;
-	}(_tb_modal2.default);
-
-	exports.default = InfoModal;
-
-
-	var CloseButton = function CloseButton(props) {
-	  return _react2.default.createElement(
-	    'button',
-	    { onClick: props.close, className: "tb-modal-close-button" },
-	    'x'
-	  );
-	};
-
-/***/ }),
-/* 219 */
-/***/ (function(module, exports, __webpack_require__) {
-
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(220);
+	var content = __webpack_require__(216);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(225)(content, {});
+	var update = __webpack_require__(221)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -23957,14 +23593,14 @@
 	}
 
 /***/ }),
-/* 220 */
+/* 216 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(221)();
+	exports = module.exports = __webpack_require__(217)();
 	// imports
-	exports.i(__webpack_require__(222), "");
-	exports.i(__webpack_require__(223), "");
-	exports.i(__webpack_require__(224), "");
+	exports.i(__webpack_require__(218), "");
+	exports.i(__webpack_require__(219), "");
+	exports.i(__webpack_require__(220), "");
 
 	// module
 	exports.push([module.id, "\n", ""]);
@@ -23973,7 +23609,7 @@
 
 
 /***/ }),
-/* 221 */
+/* 217 */
 /***/ (function(module, exports) {
 
 	/*
@@ -24029,10 +23665,10 @@
 
 
 /***/ }),
-/* 222 */
+/* 218 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(221)();
+	exports = module.exports = __webpack_require__(217)();
 	// imports
 
 
@@ -24043,10 +23679,10 @@
 
 
 /***/ }),
-/* 223 */
+/* 219 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(221)();
+	exports = module.exports = __webpack_require__(217)();
 	// imports
 
 
@@ -24057,10 +23693,10 @@
 
 
 /***/ }),
-/* 224 */
+/* 220 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(221)();
+	exports = module.exports = __webpack_require__(217)();
 	// imports
 
 
@@ -24071,7 +23707,7 @@
 
 
 /***/ }),
-/* 225 */
+/* 221 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*
@@ -24323,16 +23959,16 @@
 
 
 /***/ }),
-/* 226 */
+/* 222 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(227);
+	var content = __webpack_require__(223);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(225)(content, {});
+	var update = __webpack_require__(221)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -24349,14 +23985,13 @@
 	}
 
 /***/ }),
-/* 227 */
+/* 223 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(221)();
+	exports = module.exports = __webpack_require__(217)();
 	// imports
-	exports.i(__webpack_require__(228), "");
-	exports.i(__webpack_require__(230), "");
-	exports.i(__webpack_require__(229), "");
+	exports.i(__webpack_require__(224), "");
+	exports.i(__webpack_require__(225), "");
 
 	// module
 	exports.push([module.id, ".app-container {\n\n}\n", ""]);
@@ -24365,10 +24000,10 @@
 
 
 /***/ }),
-/* 228 */
+/* 224 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(221)();
+	exports = module.exports = __webpack_require__(217)();
 	// imports
 
 
@@ -24379,29 +24014,15 @@
 
 
 /***/ }),
-/* 229 */
+/* 225 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(221)();
+	exports = module.exports = __webpack_require__(217)();
 	// imports
 
 
 	// module
-	exports.push([module.id, ".github-button-container {\n  text-align: center;\n}\n\n.content-container {\n  text-align: center;\n  height: 200px;\n  padding-top: 40px;\n}\n\n.material-icons.md-120 {\n  font-size: 120px;\n}\n\n.modal-sign {\n  opacity: 0.2  ;\n  color: blue;\n}\n\n.loading-sign {\n  animation: loading 1.5s;\n  animation-iteration-count: infinite;\n}\n\n@keyframes loading {\n  0% {transform: translateY(0);}\n  100% {transform: translateY(30px);}\n}\n\n.modal-username {\n  color: blue;\n  font-family: 'Montserrat', cursive;\n}\n\n.modal-picture {\n  border: 3px solid blue;\n  border-radius: 3px;\n}\n", ""]);
-
-	// exports
-
-
-/***/ }),
-/* 230 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(221)();
-	// imports
-
-
-	// module
-	exports.push([module.id, ".welcome-container {\n  text-align: center;\n  position: absolute;\n  width: 40%;\n  left: 30%;\n  top: 20vh;\n  background-color: white;\n  border: 1px solid black;\n  border-radius: 3px;\n  box-shadow: 0 0 20px white;\n}\n\n.welcome-title {\n  color: #5bc0de;\n  margin-bottom: 20px;\n}\n\n.welcome-intro {\n  color: #5bc0de;\n  margin-bottom: 20px;\n}\n\n.login-button {\n  width: 100px;\n  margin: 10px;\n  opacity: 0.8;\n}\n\n.login-button:hover {\n  opacity: 1;\n}\n\n.signup-button {\n  width: 100px;\n  margin: 0 10px;\n  opacity: 0.8;\n}\n\n.signup-button:hover {\n  opacity: 1;\n}\n\n.read-button {\n  width: 210px;\n  margin: 0 10px;\n  margin-bottom: 25px;\n  opacity: 0.8;\n}\n\n.read-button:hover {\n  opacity: 1;\n}\n", ""]);
+	exports.push([module.id, ".main-container {\n  text-align: center;\n  position: absolute;\n  width: 34%;\n  left: 33%;\n  top: 20vh;\n  background-color: white;\n  border: 1px solid black;\n  border-radius: 3px;\n  box-shadow: 0 0 20px white;\n  height: 250px;\n}\n\n.welcome-title {\n  color: #5bc0de;\n  margin-bottom: 20px;\n}\n\n.welcome-intro {\n  color: #5bc0de;\n  margin-bottom: 20px;\n}\n\n.login-button {\n  width: 100px;\n  margin: 10px;\n  opacity: 0.8;\n}\n\n.login-button:hover {\n  opacity: 1;\n}\n\n.signup-button {\n  width: 100px;\n  margin: 0 10px;\n  opacity: 0.8;\n}\n\n.signup-button:hover {\n  opacity: 1;\n}\n\n.read-button {\n  width: 220px;\n  margin: 0 10px;\n  margin-bottom: 20px;\n  opacity: 0.8;\n}\n\n.read-button:hover {\n  opacity: 1;\n}\n\n.interface {\n  animation: appear 1.2s ease-out forwards;\n}\n\n@keyframes appear {\n  0% {opacity: 0;}\n  100% {opacity: 1;}\n}\n", ""]);
 
 	// exports
 

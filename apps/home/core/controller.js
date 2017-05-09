@@ -8,8 +8,7 @@ import {
 } from './reducers/response_reducers'
 
 import {
-  modalOpenReducer,
-  modalCloseReducer
+  mainChangeReducer
 } from './reducers/select_reducers'
 
 import {
@@ -27,11 +26,8 @@ const core = (() => {
       case "INPUT_FIELD_CHANGED":
         nextState = userInputReducer(current, action)
         return nextState
-      case "MODAL_OPENED":
-        nextState = modalOpenReducer(current, action)
-        return nextState
-      case "MODAL_CLOSED":
-        nextState = modalCloseReducer(current, action)
+      case "MAIN_CHANGE":
+        nextState = mainChangeReducer(current, action)
         return nextState
       case "GITHUB_DATA_REQUESTED":
         nextState = requestedGithubDataReducer(current, action)

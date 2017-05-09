@@ -1,21 +1,12 @@
 const stateTree = {
   state: {
-    view: {
-      main: "login",
-      modal: null
-    },
+    interface: "start",
     isWaiting: false
   },
 
   data: {
-    login: {
-      name: "",
-      password: ""
-    },
-    signup: {
-      name: "",
-      password: ""
-    }
+    username: "",
+    password: ""
   }
 }
 

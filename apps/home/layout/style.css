@@ -1,6 +1,5 @@
 @import "./background/style.css";
-@import "./start/style.css";
-@import "./signupmodal/style.css";
+@import "./main_container/style.css";
 
 .app-container {
 

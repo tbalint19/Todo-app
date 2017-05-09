@@ -1,5 +1,10 @@
 export const userInputReducer = (current, action) => {
   let nextState = Object.assign({}, current)
-  nextState.data.welcome = action.value.length <= 15 ? action.value : nextState.data.welcome
+  if (action.input == "username" && action.value.length < 11){
+    nextState.data.username = action.value
+  }
+  if (action.input == "password" && action.value.length < 11){
+    nextState.data.password = action.value
+  }
   return nextState
 }

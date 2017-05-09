@@ -3,10 +3,7 @@ import React from 'react'
 import ViewDependencies from 'view_dependencies'
 
 import Background from './background/component'
-import Start from './start/component'
-import SignupModal from './signupmodal/component'
-import LoginModal from './loginmodal/component'
-import InfoModal from './infomodal/component'
+import MainContainer from './main_container/component'
 
 class View extends React.Component{
 
@@ -24,14 +21,7 @@ class View extends React.Component{
         <Background/>
 
         {/* Middle */}
-        <Start data={data} state={state} controller={controller}/>
-
-        {/* Modals */}
-        {state.view.modal == "signupModal" && <SignupModal data={data} state={state} controller={controller}/>}
-
-        {state.view.modal == "loginModal" && <LoginModal data={data} state={state} controller={controller}/>}
-
-        {state.view.modal == "infoModal" && <InfoModal data={data} state={state} controller={controller}/>}
+        <MainContainer data={data} state={state} controller={controller}/>
 
       </div>
 

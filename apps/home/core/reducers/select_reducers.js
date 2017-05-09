@@ -1,11 +1,7 @@
-export const modalOpenReducer = (current, action) => {
+export const mainChangeReducer = (current, action) => {
   let nextState = Object.assign({}, current)
-  nextState.state.view.modal = action.modal
-  return nextState
-}
-
-export const modalCloseReducer = (current, action) => {
-  let nextState = Object.assign({}, current)
-  nextState.state.view.modal = null
+  nextState.state.interface = action.interface
+  nextState.data.username = ""
+  nextState.data.password = ""
   return nextState
 }

@@ -7,7 +7,7 @@ class APP:
     def public(view):
         def render_app(request):
             template = view(request)
-            app = template + 'html'
+            app = template + '.html'
             return render(request, app)
         return render_app
 
@@ -19,6 +19,6 @@ class APP:
             if not is_authenticated:
                 return redirect('get_login')
             template = view(request)
-            app = template + 'html'
+            app = template + '.html'
             return render(request, app)
         return render_app

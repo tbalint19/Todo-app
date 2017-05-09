@@ -5,7 +5,6 @@ class API:
 
     @staticmethod
     def public(view):
-        import json
         def generate_response(request):
             response = {'data': [], 'is_authenticated': False}
             response['data'] = view(request)
@@ -14,7 +13,6 @@ class API:
 
     @staticmethod
     def protected(view):
-        import json
         def generate_response(request):
             user = authenticate(request)
             is_authenticated = user is not None

@@ -1,40 +1,31 @@
-from django.shortcuts import render, redirect
-from django.http import JsonResponse
-from django.contrib.auth import authenticate
-import json
+from Middleware import APP, API
+from app_list.models import Todo
 
+@APP.protected
 def get_list(request):
-    is_authenticated = authenticate(request) is not None
-    if not is_authenticated:
-        return redirect('get_login')
-    return render(request, 'list.html')
+    return 'list'
 
+@API.protected
 def create_todo(request):
-    is_authenticated = authenticate(request) is not None
-    if is_authenticated:
-        todo_data = json.loads(request.body.decode("utf-8"))
-        todo = Todo(user=request.user, title=todo_data["title"], text=todo_data["text"])
-        todo.save()
-    return JsonResponse({"created": True})
+    todo_data = json.loads(request.body.decode("utf-8"))
+    todo = Todo(user=request.user, title=todo_data["title"], text=todo_data["text"])
+    todo.save()
+    return "created"
 
+@API.protected
 def get_todos(request):
-    is_authenticated = authenticate(request) is not None
-    if is_authenticated:
-        todos = Todo.get_todos(request.user)
-    return JsonResponse({'data': todos})
+    return Todo.get_todos(request.user)
 
+@API.protected
 def update_todos(request):
-    is_authenticated = authenticate(request) is not None
-    if is_authenticated:
-        all_data = json.loads(request.body.decode("utf-8"))
-        for todo_data in all_data:
-            todo = Todo.objects.get(id=todo_data["id"])
-            todo.update(title=todo_data["title"], text=todo_data["text"])
-    return JsonResponse({"updated": is_authenticated})
+    all_data = json.loads(request.body.decode("utf-8"))
+    for todo_data in all_data:
+        todo = Todo.objects.get(id=todo_data["id"])
+        todo.update(title=todo_data["title"], text=todo_data["text"])
+    return "updated"
 
+@API.protected
 def delete_todo(request):
-    is_authenticated = authenticate(request) is not None
-    if is_authenticated:
-        todo_id = json.loads(request.body.decode("utf-8"))["id"]
-        Todo.objects.get(id=todo_id).delete()
-    return JsonResponse({"deleted": is_authenticated})
+    todo_id = json.loads(request.body.decode("utf-8"))["id"]
+    Todo.objects.get(id=todo_id).delete()
+    return "deleted"

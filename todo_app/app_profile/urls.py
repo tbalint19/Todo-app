@@ -5,6 +5,6 @@ from . import views
 urlpatterns = [
 
     # login page
-    url(r'^', views.get_login, name='get_login'),
+    url(r'^$', views.get_login, name='get_login'),
 
 ]

@@ -4,7 +4,8 @@ module.exports = {
   context: __dirname,
 
   entry: {
-     home: './home/main.jsx'
+     home: './home/main.jsx',
+     list: './list/main.jsx'
   },
 
   output: {

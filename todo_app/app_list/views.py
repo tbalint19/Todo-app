@@ -3,6 +3,9 @@ from django.http import JsonResponse
 import json
 
 def get_list(request):
+    is_authenticated = request.user is not None
+    if not is_authenticated:
+        return redirect('get_login')
     return render(request, 'list.html')
 
 def create_todo(request):

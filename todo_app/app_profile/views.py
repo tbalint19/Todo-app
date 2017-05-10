@@ -9,22 +9,18 @@ def get_login(request):
 
 @API.public
 def signup(request):
-    signup_data = json.loads(request.body.decode('utf-8'))
-    username = signup_data["username"]
-    password = signup_data["password"]
-    is_possible = not User.filter(username=signup_data["username"]).exists
+    user_data = json.loads(request.body.decode('utf-8'))
+    is_possible = not User.filter(username=user_data["username"]).exists
     if is_possible:
-        user = User.objects.create_user(username=username, password=password)
+        user = User.objects.create_user(username=user_data["username"], password=user_data["password"])
     return {'created': is_possible}
 
 @API.public
 def login(request):
-    login_data = json.loads(request.body.decode('utf-8'))
-    username = login_data["username"]
-    password = login_data["password"]
-    user = authenticate(request, username=username, password=password)
+    user_data = json.loads(request.body.decode('utf-8'))
+    user = authenticate(request, username=user_data["username"], password=user_data["password"])
     is_authenticated = user is not None
-    if is_authenticated:
+    if user is not None:
         login(request, user)
     return {'authenticated': is_authenticated}
 

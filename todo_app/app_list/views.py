@@ -19,14 +19,13 @@ def get_todos(request):
 
 @API.protected
 def update_todos(request):
-    all_data = json.loads(request.body.decode("utf-8"))
-    for todo_data in all_data:
+    for todo_data in json.loads(request.body.decode("utf-8")):
         todo = Todo.objects.get(id=todo_data["id"])
         todo.update(title=todo_data["title"], text=todo_data["text"])
     return "updated"
 
 @API.protected
 def delete_todo(request):
-    todo_id = json.loads(request.body.decode("utf-8"))["id"]
-    Todo.objects.get(id=todo_id).delete()
+    todo_data = json.loads(request.body.decode("utf-8"))
+    Todo.objects.get(id=todo_data["id"]).delete()
     return "deleted"

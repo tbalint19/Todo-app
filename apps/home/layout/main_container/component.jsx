@@ -50,13 +50,6 @@ class MainContainer extends Container{
         </div>}
         {(iface == "login" || iface == "signup") && <div className={"interface"} key={iface}>
           <Title text={iface == "login" ? "Login" : "Sign up"}/>
-          <div className={"action-interface-placeholder"}>
-            {signupSuccessful == false && <Err text={"Already occupied"}/>}
-            {signupSuccessful && <Success text={"You can log in now!"}/>}
-            {loginSuccessful == false && <Err text={"Invalid credentials"}/>}
-            {loginSuccessful && <Success text={"Please wait..."}/>}
-            {loginSuccessful && window.location("/list")}
-          </div>
           <InputField action={(event)=>this.changeInput(event)} username={username} password={password}/>
           <InputController
             getBack={()=>this.getBack()}
@@ -106,12 +99,4 @@ const InputController = (props) => (
     <button className={"back-button"} onClick={props.getBack}>Back</button>
     {props.action && <button className={"action-button"} onClick={props.action}>{props.name}</button>}
   </p>
-)
-
-const Err = (props) => (
-  <p><i className="material-icons">warning</i>&nbsp;{props.text}</p>
-)
-
-const Success = (props) => (
-  <p><i className="material-icons">check_box</i>&nbsp;{props.text}</p>
 )

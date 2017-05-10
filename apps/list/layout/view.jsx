@@ -3,7 +3,6 @@ import React from 'react'
 import ViewDependencies from 'view_dependencies'
 
 import Background from './background/component'
-import MainContainer from './main_container/component'
 
 class View extends React.Component{
 

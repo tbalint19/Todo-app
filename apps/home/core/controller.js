@@ -19,16 +19,16 @@ import {
 
 const core = (() => {
 
-  const initialState = stateTree
+  const initialState = Object.assign({}, stateTree)
 
   const reducer = (state = initialState, action) => {
-    let current = state
+    let current = Object.assign({}, state)
     let nextState
     switch (action.type) {
       case "INPUT_FIELD_CHANGED":
         nextState = userInputReducer(current, action)
         return nextState
-      case "MAIN_CHANGE":
+      case "INTERFACE_CHANGE":
         nextState = mainChangeReducer(current, action)
         return nextState
       case "LOGIN_REQUESTED":

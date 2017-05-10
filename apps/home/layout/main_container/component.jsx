@@ -3,44 +3,7 @@ import Container from 'container'
 
 class MainContainer extends Container{
 
-  getLogin(){
-    this.dispatch({type: "MAIN_CHANGE", interface: "login"})
-  }
-
-  getSignup(){
-    this.dispatch({type: "MAIN_CHANGE", interface: "signup"})
-  }
-
-  getInfo(){
-    this.dispatch({type: "MAIN_CHANGE", interface: "info"})
-  }
-
-  getBack(){
-    this.dispatch({type: "MAIN_CHANGE", interface: "start"})
-  }
-
-  changeInput(event){
-    this.dispatch({type: "INPUT_FIELD_CHANGED", input: event.target.name, value: event.target.value})
-  }
-
-  login(username, password){
-    let request = {method: "POST", destination: "api/login", data: {username, password}, action: {type: "LOGIN_RESPONSE"}}
-    this.JSONtransfer(request)
-    this.dispatch({type: "LOGIN_REQUESTED"})
-  }
-
-  signup(username, password){
-    let request = {method: "POST", destination: "api/signup", data: {username, password}, action: {type: "SIGNUP_RESPONSE"}}
-    this.JSONtransfer(request)
-    this.dispatch({type: "SIGNUP_REQUESTED"})
-  }
-
   render(){
-    let iface = this.props.state.interface
-    let username = this.props.data.username
-    let password = this.props.data.password
-    let loginSuccessful = this.props.state.loginSuccessful
-    let signupSuccessful = this.props.state.signupSuccessful
     return (
       <div className={"main-container"}>
         {iface == "start" && <div className={"interface"} key={iface}>

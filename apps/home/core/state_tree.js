@@ -1,10 +1,17 @@
 const stateTree = {
   state: {
     interface: "start",
-    loginSuccessful: null,
-    signupSuccessful: null
+    isWaiting: false,
+    login: {
+      error: false,
+      successfulLogin: false
+    },
+    signup: {
+      lengthError: false,
+      occupiedError: false,
+      successfulSignup: false
+    }
   },
-
   data: {
     username: "",
     password: ""

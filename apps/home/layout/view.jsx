@@ -3,7 +3,10 @@ import React from 'react'
 import ViewDependencies from 'view_dependencies'
 
 import Background from './background/component'
-import MainContainer from './main_container/component'
+import Start from './start/component'
+import Signup from './signup/component'
+import Login from './login/component'
+import About from './about/component'
 
 class View extends React.Component{
 
@@ -21,7 +24,12 @@ class View extends React.Component{
         <Background/>
 
         {/* Middle */}
-        <MainContainer data={data} state={state} controller={controller}/>
+        <div className={"main-container"}>
+          {state.view == "start" && <Start data={data} state={state} controller={controller}/>}
+          {state.view == "signup" && <Signup data={data} state={state} controller={controller}/>}
+          {state.view == "login" && <Login data={data} state={state} controller={controller}/>}
+          {state.view == "about" && <About data={data} state={state} controller={controller}/>}
+        </div>
 
       </div>
 

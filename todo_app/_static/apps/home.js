@@ -21838,19 +21838,19 @@
 
 	var core = function () {
 
-	  var initialState = _state_tree2.default;
+	  var initialState = Object.assign({}, _state_tree2.default);
 
 	  var reducer = function reducer() {
 	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
 	    var action = arguments[1];
 
-	    var current = state;
+	    var current = Object.assign({}, state);
 	    var nextState = void 0;
 	    switch (action.type) {
 	      case "INPUT_FIELD_CHANGED":
 	        nextState = (0, _input_reducers.userInputReducer)(current, action);
 	        return nextState;
-	      case "MAIN_CHANGE":
+	      case "INTERFACE_CHANGE":
 	        nextState = (0, _select_reducers.mainChangeReducer)(current, action);
 	        return nextState;
 	      case "LOGIN_REQUESTED":
@@ -23127,10 +23127,17 @@
 	var stateTree = {
 	  state: {
 	    interface: "start",
-	    loginSuccessful: null,
-	    signupSuccessful: null
+	    isWaiting: false,
+	    login: {
+	      error: false,
+	      successfulLogin: false
+	    },
+	    signup: {
+	      lengthError: false,
+	      occupiedError: false,
+	      successfulSignup: false
+	    }
 	  },
-
 	  data: {
 	    username: "",
 	    password: ""
@@ -23233,9 +23240,21 @@
 
 	var _component2 = _interopRequireDefault(_component);
 
-	var _component3 = __webpack_require__(213);
+	var _component3 = __webpack_require__(236);
 
 	var _component4 = _interopRequireDefault(_component3);
+
+	var _component5 = __webpack_require__(237);
+
+	var _component6 = _interopRequireDefault(_component5);
+
+	var _component7 = __webpack_require__(238);
+
+	var _component8 = _interopRequireDefault(_component7);
+
+	var _component9 = __webpack_require__(239);
+
+	var _component10 = _interopRequireDefault(_component9);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -23265,7 +23284,14 @@
 	        { className: "app-container" },
 	        _react2.default.createElement(_view_dependencies2.default, null),
 	        _react2.default.createElement(_component2.default, null),
-	        _react2.default.createElement(_component4.default, { data: data, state: state, controller: controller })
+	        _react2.default.createElement(
+	          'div',
+	          { className: "main-container" },
+	          state.view == "start" && _react2.default.createElement(_component4.default, { data: data, state: state, controller: controller }),
+	          state.view == "signup" && _react2.default.createElement(_component6.default, { data: data, state: state, controller: controller }),
+	          state.view == "login" && _react2.default.createElement(_component8.default, { data: data, state: state, controller: controller }),
+	          state.view == "about" && _react2.default.createElement(_component10.default, { data: data, state: state, controller: controller })
+	        )
 	      );
 	    }
 	  }]);
@@ -23325,217 +23351,7 @@
 	exports.default = Background;
 
 /***/ }),
-/* 213 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _container = __webpack_require__(214);
-
-	var _container2 = _interopRequireDefault(_container);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var MainContainer = function (_Container) {
-	  _inherits(MainContainer, _Container);
-
-	  function MainContainer() {
-	    _classCallCheck(this, MainContainer);
-
-	    return _possibleConstructorReturn(this, (MainContainer.__proto__ || Object.getPrototypeOf(MainContainer)).apply(this, arguments));
-	  }
-
-	  _createClass(MainContainer, [{
-	    key: 'getLogin',
-	    value: function getLogin() {
-	      this.dispatch({ type: "MAIN_CHANGE", interface: "login" });
-	    }
-	  }, {
-	    key: 'getSignup',
-	    value: function getSignup() {
-	      this.dispatch({ type: "MAIN_CHANGE", interface: "signup" });
-	    }
-	  }, {
-	    key: 'getInfo',
-	    value: function getInfo() {
-	      this.dispatch({ type: "MAIN_CHANGE", interface: "info" });
-	    }
-	  }, {
-	    key: 'getBack',
-	    value: function getBack() {
-	      this.dispatch({ type: "MAIN_CHANGE", interface: "start" });
-	    }
-	  }, {
-	    key: 'changeInput',
-	    value: function changeInput(event) {
-	      this.dispatch({ type: "INPUT_FIELD_CHANGED", input: event.target.name, value: event.target.value });
-	    }
-	  }, {
-	    key: 'login',
-	    value: function login(username, password) {
-	      var request = { method: "POST", destination: "api/login", data: { username: username, password: password }, action: { type: "LOGIN_RESPONSE" } };
-	      this.JSONtransfer(request);
-	      this.dispatch({ type: "LOGIN_REQUESTED" });
-	    }
-	  }, {
-	    key: 'signup',
-	    value: function signup(username, password) {
-	      var request = { method: "POST", destination: "api/signup", data: { username: username, password: password }, action: { type: "SIGNUP_RESPONSE" } };
-	      this.JSONtransfer(request);
-	      this.dispatch({ type: "SIGNUP_REQUESTED" });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var _this2 = this;
-
-	      var iface = this.props.state.interface;
-	      var username = this.props.data.username;
-	      var password = this.props.data.password;
-	      var loginSuccessful = this.props.state.loginSuccessful;
-	      var signupSuccessful = this.props.state.signupSuccessful;
-	      return _react2.default.createElement(
-	        'div',
-	        { className: "main-container" },
-	        iface == "start" && _react2.default.createElement(
-	          'div',
-	          { className: "interface", key: iface },
-	          _react2.default.createElement(Title, { text: "Welcome to RoboTODO!" }),
-	          _react2.default.createElement(Intro, { text: "The most simple to-do app ever." }),
-	          _react2.default.createElement(Controller, { getLogin: function getLogin() {
-	              return _this2.getLogin();
-	            }, getSignup: function getSignup() {
-	              return _this2.getSignup();
-	            }, getInfo: function getInfo() {
-	              return _this2.getInfo();
-	            } })
-	        ),
-	        (iface == "login" || iface == "signup") && _react2.default.createElement(
-	          'div',
-	          { className: "interface", key: iface },
-	          _react2.default.createElement(Title, { text: iface == "login" ? "Login" : "Sign up" }),
-	          _react2.default.createElement(InputField, { action: function action(event) {
-	              return _this2.changeInput(event);
-	            }, username: username, password: password }),
-	          _react2.default.createElement(InputController, {
-	            getBack: function getBack() {
-	              return _this2.getBack();
-	            },
-	            action: iface == "login" ? function () {
-	              return _this2.login(username, password);
-	            } : function () {
-	              return _this2.signup(username, password);
-	            },
-	            name: iface == "login" ? "Login" : "Sign up" })
-	        ),
-	        iface == "info" && _react2.default.createElement(
-	          'div',
-	          { className: "interface", key: iface },
-	          _react2.default.createElement(Title, { text: "About" }),
-	          _react2.default.createElement(Intro, { text: "This is a to-do app..." }),
-	          _react2.default.createElement(InputController, { getBack: function getBack() {
-	              return _this2.getBack();
-	            } })
-	        )
-	      );
-	    }
-	  }]);
-
-	  return MainContainer;
-	}(_container2.default);
-
-	exports.default = MainContainer;
-
-
-	var Title = function Title(props) {
-	  return _react2.default.createElement(
-	    'h3',
-	    { className: "welcome-title" },
-	    props.text
-	  );
-	};
-
-	var Intro = function Intro(props) {
-	  return _react2.default.createElement(
-	    'p',
-	    { className: "welcome-intro" },
-	    props.text
-	  );
-	};
-
-	var Controller = function Controller(props) {
-	  return _react2.default.createElement(
-	    'div',
-	    null,
-	    _react2.default.createElement(
-	      'p',
-	      null,
-	      _react2.default.createElement(
-	        'button',
-	        { className: "login-button", onClick: props.getLogin },
-	        'Login'
-	      ),
-	      _react2.default.createElement(
-	        'button',
-	        { className: "signup-button", onClick: props.getSignup },
-	        'Sign up'
-	      )
-	    ),
-	    _react2.default.createElement(
-	      'p',
-	      null,
-	      _react2.default.createElement(
-	        'button',
-	        { className: "read-button", onClick: props.getInfo },
-	        'Read more'
-	      )
-	    )
-	  );
-	};
-
-	var InputField = function InputField(props) {
-	  return _react2.default.createElement(
-	    'p',
-	    null,
-	    _react2.default.createElement('input', { onChange: props.action, name: "username", value: props.username, placeholder: "username" }),
-	    _react2.default.createElement('input', { onChange: props.action, name: "password", value: props.password, placeholder: "password" })
-	  );
-	};
-
-	var InputController = function InputController(props) {
-	  return _react2.default.createElement(
-	    'p',
-	    null,
-	    _react2.default.createElement(
-	      'button',
-	      { className: "back-button", onClick: props.getBack },
-	      'Back'
-	    ),
-	    props.action && _react2.default.createElement(
-	      'button',
-	      { className: "action-button", onClick: props.action },
-	      props.name
-	    )
-	  );
-	};
-
-/***/ }),
+/* 213 */,
 /* 214 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24016,7 +23832,7 @@
 	exports.i(__webpack_require__(225), "");
 
 	// module
-	exports.push([module.id, ".app-container {\n\n}\n", ""]);
+	exports.push([module.id, ".main-container {\n  text-align: center;\n  position: absolute;\n  width: 34%;\n  left: 33%;\n  top: 20vh;\n  background-color: white;\n  border: 1px solid black;\n  border-radius: 3px;\n  box-shadow: 0 0 20px white;\n  height: 250px;\n}\n", ""]);
 
 	// exports
 
@@ -24048,6 +23864,274 @@
 
 	// exports
 
+
+/***/ }),
+/* 226 */,
+/* 227 */,
+/* 228 */,
+/* 229 */,
+/* 230 */,
+/* 231 */,
+/* 232 */,
+/* 233 */,
+/* 234 */,
+/* 235 */,
+/* 236 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _container = __webpack_require__(214);
+
+	var _container2 = _interopRequireDefault(_container);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Start = function (_Container) {
+	  _inherits(Start, _Container);
+
+	  function Start() {
+	    _classCallCheck(this, Start);
+
+	    return _possibleConstructorReturn(this, (Start.__proto__ || Object.getPrototypeOf(Start)).apply(this, arguments));
+	  }
+
+	  _createClass(Start, [{
+	    key: 'getLogin',
+	    value: function getLogin() {
+	      this.dispatch({ type: "MAIN_CHANGE", interface: "login" });
+	    }
+	  }, {
+	    key: 'getSignup',
+	    value: function getSignup() {
+	      this.dispatch({ type: "MAIN_CHANGE", interface: "signup" });
+	    }
+	  }, {
+	    key: 'getInfo',
+	    value: function getInfo() {
+	      this.dispatch({ type: "MAIN_CHANGE", interface: "info" });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement('div', null);
+	    }
+	  }]);
+
+	  return Start;
+	}(_container2.default);
+
+	exports.default = Start;
+
+/***/ }),
+/* 237 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _container = __webpack_require__(214);
+
+	var _container2 = _interopRequireDefault(_container);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Signup = function (_Container) {
+	  _inherits(Signup, _Container);
+
+	  function Signup() {
+	    _classCallCheck(this, Signup);
+
+	    return _possibleConstructorReturn(this, (Signup.__proto__ || Object.getPrototypeOf(Signup)).apply(this, arguments));
+	  }
+
+	  _createClass(Signup, [{
+	    key: 'getBack',
+	    value: function getBack() {
+	      this.dispatch({ type: "MAIN_CHANGE", interface: "start" });
+	    }
+	  }, {
+	    key: 'changeInput',
+	    value: function changeInput(event) {
+	      this.dispatch({ type: "INPUT_FIELD_CHANGED", input: event.target.name, value: event.target.value });
+	    }
+	  }, {
+	    key: 'signup',
+	    value: function signup(username, password) {
+	      var request = { method: "POST", destination: "api/signup", data: { username: username, password: password }, action: { type: "SIGNUP_RESPONSE" } };
+	      this.JSONtransfer(request);
+	      this.dispatch({ type: "SIGNUP_REQUESTED" });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var state = this.props.state.signup;
+	      var isWaiting = this.props.state.isWaiting;
+	      var username = this.props.data.username;
+	      var password = this.props.data.password;
+	      return _react2.default.createElement('div', null);
+	    }
+	  }]);
+
+	  return Signup;
+	}(_container2.default);
+
+	exports.default = Signup;
+
+/***/ }),
+/* 238 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _container = __webpack_require__(214);
+
+	var _container2 = _interopRequireDefault(_container);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Login = function (_Container) {
+	  _inherits(Login, _Container);
+
+	  function Login() {
+	    _classCallCheck(this, Login);
+
+	    return _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).apply(this, arguments));
+	  }
+
+	  _createClass(Login, [{
+	    key: 'getBack',
+	    value: function getBack() {
+	      this.dispatch({ type: "MAIN_CHANGE", interface: "start" });
+	    }
+	  }, {
+	    key: 'changeInput',
+	    value: function changeInput(event) {
+	      this.dispatch({ type: "INPUT_FIELD_CHANGED", input: event.target.name, value: event.target.value });
+	    }
+	  }, {
+	    key: 'login',
+	    value: function login(username, password) {
+	      var request = { method: "POST", destination: "api/login", data: { username: username, password: password }, action: { type: "LOGIN_RESPONSE" } };
+	      this.JSONtransfer(request);
+	      this.dispatch({ type: "LOGIN_REQUESTED" });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var state = this.props.state.login;
+	      var isWaiting = this.props.state.isWaiting;
+	      var username = this.props.data.username;
+	      var password = this.props.data.password;
+	      return _react2.default.createElement('div', null);
+	    }
+	  }]);
+
+	  return Login;
+	}(_container2.default);
+
+	exports.default = Login;
+
+/***/ }),
+/* 239 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _container = __webpack_require__(214);
+
+	var _container2 = _interopRequireDefault(_container);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var About = function (_Container) {
+	  _inherits(About, _Container);
+
+	  function About() {
+	    _classCallCheck(this, About);
+
+	    return _possibleConstructorReturn(this, (About.__proto__ || Object.getPrototypeOf(About)).apply(this, arguments));
+	  }
+
+	  _createClass(About, [{
+	    key: 'getBack',
+	    value: function getBack() {
+	      this.dispatch({ type: "MAIN_CHANGE", interface: "start" });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement('div', null);
+	    }
+	  }]);
+
+	  return About;
+	}(_container2.default);
+
+	exports.default = About;
 
 /***/ })
 /******/ ]);

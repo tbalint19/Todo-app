@@ -20,6 +20,6 @@ export const userDataResponseReducer = (current, action) => {
   let nextState = Object.assign({}, current)
   let response = action.data
   nextState.data.user.name = response.data.username
-  nextState.data.user.avatar = response.data.avatar
+  nextState.data.user.avatar = response.data.avatar_url
   return nextState
 }

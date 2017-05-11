@@ -23158,6 +23158,7 @@
 	var requestedLoginReducer = exports.requestedLoginReducer = function requestedLoginReducer(current, action) {
 	  var nextState = Object.assign({}, current);
 	  nextState.state.isWaiting = true;
+	  nextState.state.signup.successfulSignup = false;
 	  return nextState;
 	};
 
@@ -23705,7 +23706,7 @@
 	    _react2.default.createElement(
 	      'p',
 	      null,
-	      _react2.default.createElement('input', { onChange: props.action, name: "password", placeholder: "password", value: props.password })
+	      _react2.default.createElement('input', { onChange: props.action, name: "password", placeholder: "password", value: props.password, type: "password" })
 	    )
 	  );
 	};
@@ -23893,7 +23894,7 @@
 	    _react2.default.createElement(
 	      'p',
 	      null,
-	      _react2.default.createElement('input', { onChange: props.action, name: "password", placeholder: "password", value: props.password })
+	      _react2.default.createElement('input', { onChange: props.action, name: "password", placeholder: "password", value: props.password, type: "password" })
 	    )
 	  );
 	};

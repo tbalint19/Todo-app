@@ -8,4 +8,10 @@
   background-color: white;
   border: 1px solid black;
   box-shadow: 0 0 10px white;
+  height: 200px;
+  color: blue;
+}
+
+.user-data-container {
+  height: 150px;
 }

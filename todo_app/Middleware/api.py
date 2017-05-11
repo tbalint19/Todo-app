@@ -14,8 +14,8 @@ class API:
     @staticmethod
     def protected(view):
         def generate_response(request):
-            response = {'data': [], 'is_authenticated': request.user.is_authenticated}
-            if request.user.is_authenticated:
+            response = {'data': [], 'is_authenticated': request.user.is_authenticated()}
+            if request.user.is_authenticated():
                 response['data'] = view(request)
             return JsonResponse(response)
         return generate_response

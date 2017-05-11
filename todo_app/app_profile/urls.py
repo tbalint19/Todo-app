@@ -12,4 +12,6 @@ urlpatterns = [
     url(r'^api/login$', views.login_user, name='login_user'),
     url(r'^api/logout$', views.logout_user, name='logout_user'),
 
+    url(r'^api/user_data$', views.get_user_data, name='get_user_data'),
+
 ]

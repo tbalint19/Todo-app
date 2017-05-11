@@ -21,8 +21,10 @@ class Profile extends Container{
     let avatar = this.props.data.user.avatar
     return (
       <div className={"profile-container"}>
-        <img src={avatar}/>
-        <p>{name}</p>
+        <div className={"user-data-container"}>
+          <img src={avatar}/>
+          <p>{name}</p>
+        </div>
         {logoutCompleted && location.reload()}
         <button onClick={()=>this.logout()}>Logout</button>
       </div>

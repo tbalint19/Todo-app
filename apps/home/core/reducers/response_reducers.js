@@ -1,6 +1,7 @@
 export const requestedLoginReducer = (current, action) => {
   let nextState = Object.assign({}, current)
   nextState.state.isWaiting = true
+  nextState.state.signup.successfulSignup = false
   return nextState
 }
 

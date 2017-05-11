@@ -23651,7 +23651,7 @@
 	  var nextState = Object.assign({}, current);
 	  var response = action.data;
 	  nextState.data.user.name = response.data.username;
-	  nextState.data.user.avatar = response.data.avatar;
+	  nextState.data.user.avatar = response.data.avatar_url;
 	  return nextState;
 	};
 
@@ -23805,11 +23805,15 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { className: "profile-container" },
-	        _react2.default.createElement('img', { src: avatar }),
 	        _react2.default.createElement(
-	          'p',
-	          null,
-	          name
+	          'div',
+	          { className: "user-data-container" },
+	          _react2.default.createElement('img', { src: avatar }),
+	          _react2.default.createElement(
+	            'p',
+	            null,
+	            name
+	          )
 	        ),
 	        logoutCompleted && location.reload(),
 	        _react2.default.createElement(
@@ -23892,7 +23896,7 @@
 
 
 	// module
-	exports.push([module.id, ".profile-container {\n  text-align: center;\n  position: fixed;\n  top: 5vh;\n  right: 10%;\n  width: 200px;\n  padding: 30px;\n  background-color: white;\n  border: 1px solid black;\n  box-shadow: 0 0 10px white;\n}\n", ""]);
+	exports.push([module.id, ".profile-container {\n  text-align: center;\n  position: fixed;\n  top: 5vh;\n  right: 10%;\n  width: 200px;\n  padding: 30px;\n  background-color: white;\n  border: 1px solid black;\n  box-shadow: 0 0 10px white;\n  height: 200px;\n  color: blue;\n}\n\n.user-data-container {\n  height: 150px;\n}\n", ""]);
 
 	// exports
 

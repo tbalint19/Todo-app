@@ -67,7 +67,7 @@ const Loading = (props) => (
 const InputFields = (props) => (
   <div>
     <p><input onChange={props.action} name={"username"} placeholder={"username"} value={props.username}/></p>
-    <p><input onChange={props.action} name={"password"} placeholder={"password"} value={props.password}/></p>
+    <p><input onChange={props.action} name={"password"} placeholder={"password"} value={props.password} type={"password"}/></p>
   </div>
 )
 

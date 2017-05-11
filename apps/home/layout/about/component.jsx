@@ -10,8 +10,8 @@ class About extends Container{
   render(){
     return(
       <div className={"interface"}>
-        <Title title={""}/>
-        <Text text={""}/>
+        <Title title={"About"}/>
+        <Text text={"This is a to-do app..."}/>
         <BackButton action={()=>this.getBack()}/>
       </div>
     )
@@ -28,7 +28,7 @@ const Title = (props) => (
 
 const Text = (props) => (
   <div>
-    <h1>{props.text}</h1>
+    <p>{props.text}</p>
   </div>
 )
 

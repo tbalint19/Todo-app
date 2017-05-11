@@ -24,7 +24,7 @@ class Login extends Container{
     let password = this.props.data.password
     return(
       <div className={"interface"}>
-        <Title title={""}/>
+        <Title title={"Login"}/>
         <Message error={state.error} success={state.successfulLogin} isWaiting={isWaiting}/>
         <InputFields username={username} password={password} action={()=>this.changeInput()}/>
         <Buttons back={()=>this.getBack()} login={()=>this.login()}/>
@@ -43,9 +43,9 @@ const Title = (props) => (
 
 const Message = (props) => (
   <div>
-    <p>{props.error && <Err message={""}/>}</p>
-    <p>{props.success && <Success message={""}/>}</p>
-    <p>{props.isWaiting && <Loading message={""}/>}</p>
+    <p>{props.error && <Err message={"Invalid credentials"}/>}</p>
+    <p>{props.success && <Success message={"Authenticated, please wait..."}/>}</p>
+    <p>{props.isWaiting && <Loading message={"Please wait..."}/>}</p>
   </div>
 )
 

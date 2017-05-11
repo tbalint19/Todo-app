@@ -23133,7 +23133,7 @@
 	      successfulLogin: false
 	    },
 	    signup: {
-	      lengthError: false,
+	      lengthError: true,
 	      occupiedError: false,
 	      successfulSignup: false
 	    }
@@ -23213,6 +23213,9 @@
 	  if (action.input == "password" && action.value.length < 11) {
 	    nextState.data.password = action.value;
 	  }
+	  nextState.state.signup.lengthError = nextState.data.username.length < 6 && nextState.data.password.length < 6;
+	  nextState.state.signup.occupied = false;
+	  nextState.state.login.error = false;
 	  return nextState;
 	};
 
@@ -23287,10 +23290,10 @@
 	        _react2.default.createElement(
 	          'div',
 	          { className: "main-container" },
-	          state.view == "start" && _react2.default.createElement(_component4.default, { data: data, state: state, controller: controller }),
-	          state.view == "signup" && _react2.default.createElement(_component6.default, { data: data, state: state, controller: controller }),
-	          state.view == "login" && _react2.default.createElement(_component8.default, { data: data, state: state, controller: controller }),
-	          state.view == "about" && _react2.default.createElement(_component10.default, { data: data, state: state, controller: controller })
+	          state.interface == "start" && _react2.default.createElement(_component4.default, { data: data, state: state, controller: controller }),
+	          state.interface == "signup" && _react2.default.createElement(_component6.default, { data: data, state: state, controller: controller }),
+	          state.interface == "login" && _react2.default.createElement(_component8.default, { data: data, state: state, controller: controller }),
+	          state.interface == "about" && _react2.default.createElement(_component10.default, { data: data, state: state, controller: controller })
 	        )
 	      );
 	    }
@@ -23410,8 +23413,8 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { className: "interface" },
-	        _react2.default.createElement(Title, { title: "" }),
-	        _react2.default.createElement(Text, { text: "" }),
+	        _react2.default.createElement(Title, { title: "Welcome to RoboTODO!" }),
+	        _react2.default.createElement(Text, { text: "The is the most simple to-do app ever" }),
 	        _react2.default.createElement(Buttons, { signup: function signup() {
 	            return _this2.getSignup();
 	          }, login: function login() {
@@ -23602,7 +23605,7 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { className: "interface" },
-	        _react2.default.createElement(Title, { title: "" }),
+	        _react2.default.createElement(Title, { title: "Signup" }),
 	        _react2.default.createElement(Message, {
 	          lengthError: state.lengthError,
 	          occupiedError: state.occupiedError,
@@ -23613,9 +23616,9 @@
 	          } }),
 	        _react2.default.createElement(Buttons, { back: function back() {
 	            return _this2.getBack();
-	          }, login: function login() {
-	            return _this2.login();
-	          } })
+	          }, signup: function signup() {
+	            return _this2.signup();
+	          }, lengthError: state.lengthError })
 	      );
 	    }
 	  }]);
@@ -23645,22 +23648,22 @@
 	    _react2.default.createElement(
 	      'p',
 	      null,
-	      props.lengthError && _react2.default.createElement(Err, { message: "" })
+	      props.lengthError && _react2.default.createElement(Err, { message: "Min 6 characters!" })
 	    ),
 	    _react2.default.createElement(
 	      'p',
 	      null,
-	      props.occupiedError && _react2.default.createElement(Err, { message: "" })
+	      props.occupiedError && _react2.default.createElement(Err, { message: "Already occupied" })
 	    ),
 	    _react2.default.createElement(
 	      'p',
 	      null,
-	      props.success && _react2.default.createElement(Success, { message: "" })
+	      props.success && _react2.default.createElement(Success, { message: "Your account has been created!" })
 	    ),
 	    _react2.default.createElement(
 	      'p',
 	      null,
-	      props.isWaiting && _react2.default.createElement(Loading, { message: "" })
+	      props.isWaiting && _react2.default.createElement(Loading, { message: "Please wait..." })
 	    )
 	  );
 	};
@@ -23717,7 +23720,7 @@
 	    ),
 	    _react2.default.createElement(
 	      'button',
-	      { onClick: props.signup },
+	      { onClick: props.signup, disabled: props.lengthError },
 	      'Sign up'
 	    )
 	  );
@@ -23789,7 +23792,7 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { className: "interface" },
-	        _react2.default.createElement(Title, { title: "" }),
+	        _react2.default.createElement(Title, { title: "Login" }),
 	        _react2.default.createElement(Message, { error: state.error, success: state.successfulLogin, isWaiting: isWaiting }),
 	        _react2.default.createElement(InputFields, { username: username, password: password, action: function action() {
 	            return _this2.changeInput();
@@ -23828,17 +23831,17 @@
 	    _react2.default.createElement(
 	      'p',
 	      null,
-	      props.error && _react2.default.createElement(Err, { message: "" })
+	      props.error && _react2.default.createElement(Err, { message: "Invalid credentials" })
 	    ),
 	    _react2.default.createElement(
 	      'p',
 	      null,
-	      props.success && _react2.default.createElement(Success, { message: "" })
+	      props.success && _react2.default.createElement(Success, { message: "Authenticated, please wait..." })
 	    ),
 	    _react2.default.createElement(
 	      'p',
 	      null,
-	      props.isWaiting && _react2.default.createElement(Loading, { message: "" })
+	      props.isWaiting && _react2.default.createElement(Loading, { message: "Please wait..." })
 	    )
 	  );
 	};
@@ -23951,8 +23954,8 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { className: "interface" },
-	        _react2.default.createElement(Title, { title: "" }),
-	        _react2.default.createElement(Text, { text: "" }),
+	        _react2.default.createElement(Title, { title: "About" }),
+	        _react2.default.createElement(Text, { text: "This is a to-do app..." }),
 	        _react2.default.createElement(BackButton, { action: function action() {
 	            return _this2.getBack();
 	          } })
@@ -23983,7 +23986,7 @@
 	    'div',
 	    null,
 	    _react2.default.createElement(
-	      'h1',
+	      'p',
 	      null,
 	      props.text
 	    )
@@ -24427,7 +24430,10 @@
 	exports = module.exports = __webpack_require__(220)();
 	// imports
 	exports.i(__webpack_require__(227), "");
-	exports.i(__webpack_require__(228), "");
+	exports.i(__webpack_require__(239), "");
+	exports.i(__webpack_require__(240), "");
+	exports.i(__webpack_require__(241), "");
+	exports.i(__webpack_require__(242), "");
 
 	// module
 	exports.push([module.id, ".main-container {\n  text-align: center;\n  position: absolute;\n  width: 34%;\n  left: 33%;\n  top: 20vh;\n  background-color: white;\n  border: 1px solid black;\n  border-radius: 3px;\n  box-shadow: 0 0 20px white;\n  height: 250px;\n}\n", ""]);
@@ -24450,7 +24456,18 @@
 
 
 /***/ }),
-/* 228 */
+/* 228 */,
+/* 229 */,
+/* 230 */,
+/* 231 */,
+/* 232 */,
+/* 233 */,
+/* 234 */,
+/* 235 */,
+/* 236 */,
+/* 237 */,
+/* 238 */,
+/* 239 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(220)();
@@ -24458,7 +24475,49 @@
 
 
 	// module
-	exports.push([module.id, ".main-container {\n  text-align: center;\n  position: absolute;\n  width: 34%;\n  left: 33%;\n  top: 20vh;\n  background-color: white;\n  border: 1px solid black;\n  border-radius: 3px;\n  box-shadow: 0 0 20px white;\n  height: 250px;\n}\n\n.welcome-title {\n  color: #5bc0de;\n  margin-bottom: 20px;\n}\n\n.welcome-intro {\n  color: #5bc0de;\n  margin-bottom: 20px;\n}\n\n.login-button {\n  width: 100px;\n  margin: 10px;\n  opacity: 0.8;\n}\n\n.login-button:hover {\n  opacity: 1;\n}\n\n.signup-button {\n  width: 100px;\n  margin: 0 10px;\n  opacity: 0.8;\n}\n\n.signup-button:hover {\n  opacity: 1;\n}\n\n.read-button {\n  width: 220px;\n  margin: 0 10px;\n  margin-bottom: 20px;\n  opacity: 0.8;\n}\n\n.read-button:hover {\n  opacity: 1;\n}\n\n.interface {\n  animation: appear 1.2s ease-out forwards;\n}\n\n@keyframes appear {\n  0% {opacity: 0;}\n  100% {opacity: 1;}\n}\n\n.action-interface-placeholder {\n  height: 20px;\n  color: blue;\n  font-family: 'Bangers', cursive;\n}\n", ""]);
+	exports.push([module.id, "", ""]);
+
+	// exports
+
+
+/***/ }),
+/* 240 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(220)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "", ""]);
+
+	// exports
+
+
+/***/ }),
+/* 241 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(220)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "", ""]);
+
+	// exports
+
+
+/***/ }),
+/* 242 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(220)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "", ""]);
 
 	// exports
 

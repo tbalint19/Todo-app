@@ -1,5 +1,8 @@
 @import "./background/style.css";
-@import "./main_container/style.css";
+@import "./start/style.css";
+@import "./signup/style.css";
+@import "./login/style.css";
+@import "./about/style.css";
 
 .main-container {
   text-align: center;

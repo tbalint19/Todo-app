@@ -18,8 +18,8 @@ class Start extends Container{
   render(){
     return(
       <div className={"interface"}>
-        <Title title={""}/>
-        <Text text={""}/>
+        <Title title={"Welcome to RoboTODO!"}/>
+        <Text text={"The is the most simple to-do app ever"}/>
         <Buttons signup={()=>this.getSignup()} login={()=>this.getLogin()} about={()=>this.getAbout()}/>
       </div>
     )

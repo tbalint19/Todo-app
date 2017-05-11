@@ -25,10 +25,10 @@ class View extends React.Component{
 
         {/* Middle */}
         <div className={"main-container"}>
-          {state.view == "start" && <Start data={data} state={state} controller={controller}/>}
-          {state.view == "signup" && <Signup data={data} state={state} controller={controller}/>}
-          {state.view == "login" && <Login data={data} state={state} controller={controller}/>}
-          {state.view == "about" && <About data={data} state={state} controller={controller}/>}
+          {state.interface == "start" && <Start data={data} state={state} controller={controller}/>}
+          {state.interface == "signup" && <Signup data={data} state={state} controller={controller}/>}
+          {state.interface == "login" && <Login data={data} state={state} controller={controller}/>}
+          {state.interface == "about" && <About data={data} state={state} controller={controller}/>}
         </div>
 
       </div>

@@ -7,7 +7,7 @@ const stateTree = {
       successfulLogin: false
     },
     signup: {
-      lengthError: false,
+      lengthError: true,
       occupiedError: false,
       successfulSignup: false
     }

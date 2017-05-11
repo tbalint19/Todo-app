@@ -24,14 +24,14 @@ class Signup extends Container{
     let password = this.props.data.password
     return(
       <div className={"interface"}>
-        <Title title={""}/>
+        <Title title={"Signup"}/>
         <Message
           lengthError={state.lengthError}
           occupiedError={state.occupiedError}
           success={state.successfulSignup}
           isWaiting={isWaiting}/>
         <InputFields username={username} password={password} action={()=>this.changeInput()}/>
-        <Buttons back={()=>this.getBack()} login={()=>this.login()}/>
+        <Buttons back={()=>this.getBack()} signup={()=>this.signup()} lengthError={state.lengthError}/>
       </div>
     )
   }
@@ -47,10 +47,10 @@ const Title = (props) => (
 
 const Message = (props) => (
   <div>
-    <p>{props.lengthError && <Err message={""}/>}</p>
-    <p>{props.occupiedError && <Err message={""}/>}</p>
-    <p>{props.success && <Success message={""}/>}</p>
-    <p>{props.isWaiting && <Loading message={""}/>}</p>
+    <p>{props.lengthError && <Err message={"Min 6 characters!"}/>}</p>
+    <p>{props.occupiedError && <Err message={"Already occupied"}/>}</p>
+    <p>{props.success && <Success message={"Your account has been created!"}/>}</p>
+    <p>{props.isWaiting && <Loading message={"Please wait..."}/>}</p>
   </div>
 )
 
@@ -76,6 +76,6 @@ const InputFields = (props) => (
 const Buttons = (props) => (
   <div>
     <button onClick={props.back}>Back</button>
-    <button onClick={props.signup}>Sign up</button>
+    <button onClick={props.signup} disabled={props.lengthError}>Sign up</button>
   </div>
 )

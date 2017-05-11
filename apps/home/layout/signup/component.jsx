@@ -28,7 +28,6 @@ class Signup extends Container{
         <Message
           lengthError={state.lengthError}
           occupiedError={state.occupiedError}
-          success={state.successfulSignup}
           isWaiting={isWaiting}/>
         <InputFields username={username} password={password} action={(event)=>this.changeInput(event)}/>
         <Buttons back={()=>this.getBack()} signup={()=>this.signup(username, password)} lengthError={state.lengthError}/>
@@ -46,10 +45,9 @@ const Title = (props) => (
 )
 
 const Message = (props) => (
-  <div>
+  <div className={"message-body"}>
     <p>{props.lengthError && <Err message={"Min 6 characters!"}/>}</p>
     <p>{props.occupiedError && <Err message={"Already occupied"}/>}</p>
-    <p>{props.success && <Success message={"Your account has been created!"}/>}</p>
     <p>{props.isWaiting && <Loading message={"Please wait..."}/>}</p>
   </div>
 )

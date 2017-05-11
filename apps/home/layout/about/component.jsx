@@ -27,13 +27,13 @@ const Title = (props) => (
 )
 
 const Text = (props) => (
-  <div>
+  <div className={"about-text"}>
     <p>{props.text}</p>
   </div>
 )
 
 const BackButton = (props) => (
   <div>
-    <button onClick={props.action}>Back</button>
+    <button onClick={props.action} className={"about-button"}>Back</button>
   </div>
 )

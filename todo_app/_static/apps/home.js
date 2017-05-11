@@ -23182,6 +23182,7 @@
 	  nextState.state.isWaiting = false;
 	  nextState.state.signup.successfulSignup = response.data.created;
 	  nextState.state.signup.occupiedError = !response.data.created;
+	  nextState.state.interface = response.data.created ? "login" : "signup";
 	  return nextState;
 	};
 
@@ -23453,7 +23454,7 @@
 	var Text = function Text(props) {
 	  return _react2.default.createElement(
 	    'div',
-	    null,
+	    { className: "intro-text" },
 	    _react2.default.createElement(
 	      'p',
 	      null,
@@ -23485,7 +23486,7 @@
 	      null,
 	      _react2.default.createElement(
 	        'button',
-	        { onClick: props.about },
+	        { onClick: props.about, className: "about-button" },
 	        'Read more'
 	      )
 	    )
@@ -23615,7 +23616,6 @@
 	        _react2.default.createElement(Message, {
 	          lengthError: state.lengthError,
 	          occupiedError: state.occupiedError,
-	          success: state.successfulSignup,
 	          isWaiting: isWaiting }),
 	        _react2.default.createElement(InputFields, { username: username, password: password, action: function action(event) {
 	            return _this2.changeInput(event);
@@ -23650,7 +23650,7 @@
 	var Message = function Message(props) {
 	  return _react2.default.createElement(
 	    'div',
-	    null,
+	    { className: "message-body" },
 	    _react2.default.createElement(
 	      'p',
 	      null,
@@ -23660,11 +23660,6 @@
 	      'p',
 	      null,
 	      props.occupiedError && _react2.default.createElement(Err, { message: "Already occupied" })
-	    ),
-	    _react2.default.createElement(
-	      'p',
-	      null,
-	      props.success && _react2.default.createElement(Success, { message: "Your account has been created!" })
 	    ),
 	    _react2.default.createElement(
 	      'p',
@@ -23792,6 +23787,7 @@
 	      var _this2 = this;
 
 	      var state = this.props.state.login;
+	      var successfulSignup = this.props.state.signup.successfulSignup;
 	      var isWaiting = this.props.state.isWaiting;
 	      var username = this.props.data.username;
 	      var password = this.props.data.password;
@@ -23799,8 +23795,11 @@
 	        'div',
 	        { className: "interface" },
 	        _react2.default.createElement(Title, { title: "Login" }),
-	        _react2.default.createElement(Message, { error: state.error, success: state.successfulLogin, isWaiting: isWaiting }),
-	        state.successfulLogin && window.location.replace('/list'),
+	        _react2.default.createElement(Message, { error: state.error,
+	          loginSuccess: state.successfulLogin,
+	          signupSuccess: successfulSignup,
+	          isWaiting: isWaiting }),
+	        state.successfulLogin && location.reload(),
 	        _react2.default.createElement(InputFields, { username: username, password: password, action: function action(event) {
 	            return _this2.changeInput(event);
 	          } }),
@@ -23834,7 +23833,7 @@
 	var Message = function Message(props) {
 	  return _react2.default.createElement(
 	    'div',
-	    null,
+	    { className: "message-body" },
 	    _react2.default.createElement(
 	      'p',
 	      null,
@@ -23843,7 +23842,12 @@
 	    _react2.default.createElement(
 	      'p',
 	      null,
-	      props.success && _react2.default.createElement(Success, { message: "Authenticated, please wait..." })
+	      props.loginSuccess && _react2.default.createElement(Success, { message: "Authenticated, please wait..." })
+	    ),
+	    _react2.default.createElement(
+	      'p',
+	      null,
+	      props.signupSuccess && _react2.default.createElement(Success, { message: "You can log in now." })
 	    ),
 	    _react2.default.createElement(
 	      'p',
@@ -23991,7 +23995,7 @@
 	var Text = function Text(props) {
 	  return _react2.default.createElement(
 	    'div',
-	    null,
+	    { className: "about-text" },
 	    _react2.default.createElement(
 	      'p',
 	      null,
@@ -24006,7 +24010,7 @@
 	    null,
 	    _react2.default.createElement(
 	      'button',
-	      { onClick: props.action },
+	      { onClick: props.action, className: "about-button" },
 	      'Back'
 	    )
 	  );
@@ -24443,7 +24447,7 @@
 	exports.i(__webpack_require__(231), "");
 
 	// module
-	exports.push([module.id, ".main-container {\n  text-align: center;\n  position: absolute;\n  width: 34%;\n  left: 33%;\n  top: 20vh;\n  background-color: white;\n  border: 1px solid black;\n  border-radius: 3px;\n  box-shadow: 0 0 20px white;\n  height: 250px;\n}\n", ""]);
+	exports.push([module.id, ".main-container {\n  text-align: center;\n  position: absolute;\n  width: 34%;\n  left: 33%;\n  top: 20vh;\n  background-color: white;\n  border: 1px solid black;\n  border-radius: 3px;\n  box-shadow: 0 0 20px white;\n  height: 300px;\n}\n\nh1 {\n  color: blue;\n  font-family: 'Montserrat', cursive;\n}\n\np {\n  color: blue;\n  font-family: 'Montserrat', cursive;\n}\n\nspan {\n  color: #5bc0de;\n  font-family: 'Montserrat', cursive;\n}\n\nbutton {\n  margin: 10px;\n  width: 75px;\n}\n\n.message-body {\n  height: 25px;\n}\n\n.about-button {\n  width: 170px;\n}\n\n.interface {\n  animation: appear 0.9s ease-out forwards;\n}\n\n@keyframes appear {\n  0% {opacity: 0;}\n  100% {opacity: 1;}\n}\n", ""]);
 
 	// exports
 
@@ -24471,7 +24475,7 @@
 
 
 	// module
-	exports.push([module.id, "", ""]);
+	exports.push([module.id, ".intro-text {\n  height: 75px;\n}\n", ""]);
 
 	// exports
 
@@ -24513,7 +24517,7 @@
 
 
 	// module
-	exports.push([module.id, "", ""]);
+	exports.push([module.id, ".about-text {\n  height: 130px;\n}\n", ""]);
 
 	// exports
 

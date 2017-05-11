@@ -25,5 +25,6 @@ export const signupResponseReducer = (current, action) => {
   nextState.state.isWaiting = false
   nextState.state.signup.successfulSignup = response.data.created
   nextState.state.signup.occupiedError = !response.data.created
+  nextState.state.interface = response.data.created ? "login" : "signup"
   return nextState
 }

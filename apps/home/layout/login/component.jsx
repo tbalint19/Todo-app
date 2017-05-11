@@ -19,14 +19,18 @@ class Login extends Container{
 
   render(){
     let state = this.props.state.login
+    let successfulSignup = this.props.state.signup.successfulSignup
     let isWaiting = this.props.state.isWaiting
     let username = this.props.data.username
     let password = this.props.data.password
     return(
       <div className={"interface"}>
         <Title title={"Login"}/>
-        <Message error={state.error} success={state.successfulLogin} isWaiting={isWaiting}/>
-        {state.successfulLogin && window.location.replace('/list')}
+        <Message error={state.error}
+          loginSuccess={state.successfulLogin}
+          signupSuccess={successfulSignup}
+          isWaiting={isWaiting}/>
+        {state.successfulLogin && location.reload()}
         <InputFields username={username} password={password} action={(event)=>this.changeInput(event)}/>
         <Buttons back={()=>this.getBack()} login={()=>this.login(username, password)}/>
       </div>
@@ -43,9 +47,10 @@ const Title = (props) => (
 )
 
 const Message = (props) => (
-  <div>
+  <div className={"message-body"}>
     <p>{props.error && <Err message={"Invalid credentials"}/>}</p>
-    <p>{props.success && <Success message={"Authenticated, please wait..."}/>}</p>
+    <p>{props.loginSuccess && <Success message={"Authenticated, please wait..."}/>}</p>
+    <p>{props.signupSuccess && <Success message={"You can log in now."}/>}</p>
     <p>{props.isWaiting && <Loading message={"Please wait..."}/>}</p>
   </div>
 )

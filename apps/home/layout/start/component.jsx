@@ -35,7 +35,7 @@ const Title = (props) => (
 )
 
 const Text = (props) => (
-  <div>
+  <div className={"intro-text"}>
     <p>{props.text}</p>
   </div>
 )
@@ -47,7 +47,7 @@ const Buttons = (props) => (
       <button onClick={props.login}>Login</button>
     </div>
     <div>
-      <button onClick={props.about}>Read more</button>
+      <button onClick={props.about} className={"about-button"}>Read more</button>
     </div>
   </div>
 )

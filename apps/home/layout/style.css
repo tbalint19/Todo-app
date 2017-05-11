@@ -14,5 +14,42 @@
   border: 1px solid black;
   border-radius: 3px;
   box-shadow: 0 0 20px white;
-  height: 250px;
+  height: 300px;
+}
+
+h1 {
+  color: blue;
+  font-family: 'Montserrat', cursive;
+}
+
+p {
+  color: blue;
+  font-family: 'Montserrat', cursive;
+}
+
+span {
+  color: #5bc0de;
+  font-family: 'Montserrat', cursive;
+}
+
+button {
+  margin: 10px;
+  width: 75px;
+}
+
+.message-body {
+  height: 25px;
+}
+
+.about-button {
+  width: 170px;
+}
+
+.interface {
+  animation: appear 0.9s ease-out forwards;
+}
+
+@keyframes appear {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
 }

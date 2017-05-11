@@ -26,9 +26,9 @@ class APP:
         def render_app(request):
             templates = view(request)
             if request.user.is_authenticated:
-                template = apps["protected"]
+                template = templates["protected"]
             else:
-                template = apps["public"]
+                template = templates["public"]
             app = template + '.html'
             return render(request, app)
         return render_app

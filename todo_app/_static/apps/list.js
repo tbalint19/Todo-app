@@ -54,18 +54,18 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _controller = __webpack_require__(229);
+	var _controller = __webpack_require__(232);
 
 	var _controller2 = _interopRequireDefault(_controller);
 
-	var _view = __webpack_require__(234);
+	var _view = __webpack_require__(237);
 
 	var _view2 = _interopRequireDefault(_view);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	__webpack_require__(218);
-	__webpack_require__(236);
+	__webpack_require__(239);
 
 	var app = document.getElementById('app');
 
@@ -23480,7 +23480,10 @@
 /* 226 */,
 /* 227 */,
 /* 228 */,
-/* 229 */
+/* 229 */,
+/* 230 */,
+/* 231 */,
+/* 232 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23495,15 +23498,15 @@
 
 	var _datamanager2 = _interopRequireDefault(_datamanager);
 
-	var _state_tree = __webpack_require__(230);
+	var _state_tree = __webpack_require__(233);
 
 	var _state_tree2 = _interopRequireDefault(_state_tree);
 
-	var _response_reducers = __webpack_require__(231);
+	var _response_reducers = __webpack_require__(234);
 
-	var _select_reducers = __webpack_require__(232);
+	var _select_reducers = __webpack_require__(235);
 
-	var _input_reducers = __webpack_require__(233);
+	var _input_reducers = __webpack_require__(236);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -23545,7 +23548,7 @@
 	exports.default = core;
 
 /***/ }),
-/* 230 */
+/* 233 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -23568,7 +23571,7 @@
 	exports.default = stateTree;
 
 /***/ }),
-/* 231 */
+/* 234 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -23595,7 +23598,7 @@
 	};
 
 /***/ }),
-/* 232 */
+/* 235 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -23612,7 +23615,7 @@
 	};
 
 /***/ }),
-/* 233 */
+/* 236 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -23632,7 +23635,7 @@
 	};
 
 /***/ }),
-/* 234 */
+/* 237 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23651,7 +23654,7 @@
 
 	var _view_dependencies2 = _interopRequireDefault(_view_dependencies);
 
-	var _component = __webpack_require__(235);
+	var _component = __webpack_require__(238);
 
 	var _component2 = _interopRequireDefault(_component);
 
@@ -23693,7 +23696,7 @@
 	exports.default = View;
 
 /***/ }),
-/* 235 */
+/* 238 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -23715,13 +23718,13 @@
 	exports.default = Background;
 
 /***/ }),
-/* 236 */
+/* 239 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(237);
+	var content = __webpack_require__(240);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(224)(content, {});
@@ -23741,12 +23744,12 @@
 	}
 
 /***/ }),
-/* 237 */
+/* 240 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(220)();
 	// imports
-	exports.i(__webpack_require__(238), "");
+	exports.i(__webpack_require__(241), "");
 
 	// module
 	exports.push([module.id, ".app-container {\n\n}\n", ""]);
@@ -23755,7 +23758,7 @@
 
 
 /***/ }),
-/* 238 */
+/* 241 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(220)();

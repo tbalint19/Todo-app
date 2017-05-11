@@ -5,11 +5,11 @@ from . import views
 urlpatterns = [
 
     # login page
-    url(r'^$', views.get_login, name='get_login'),
+    url(r'^$', views.get_home, name='get_home'),
 
     # api
-    url(r'^api/signup$', views.signup, name='signup'),
-    url(r'^api/login$', views.login, name='login'),
-    url(r'^api/logout$', views.logout, name='logout'),
+    url(r'^api/signup$', views.signup_user, name='signup_user'),
+    url(r'^api/login$', views.login_user, name='login_user'),
+    url(r'^api/logout$', views.logout_user, name='logout_user'),
 
 ]

@@ -4,9 +4,6 @@ from . import views
 
 urlpatterns = [
 
-    # get app
-    url(r'^$', views.get_list, name='get_list'),
-
     # api for todos
     url(r'^api/create_todo', views.create_todo, name='create_todo'),
     url(r'^api/get_todos', views.get_todos, name='get_todos'),

@@ -2,10 +2,6 @@ from Middleware import APP, API
 from app_list.models import Todo
 import json
 
-@APP.protected
-def get_list(request):
-    return 'list'
-
 @API.protected
 def create_todo(request):
     todo_data = json.loads(request.body.decode("utf-8"))

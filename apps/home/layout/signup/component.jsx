@@ -30,8 +30,8 @@ class Signup extends Container{
           occupiedError={state.occupiedError}
           success={state.successfulSignup}
           isWaiting={isWaiting}/>
-        <InputFields username={username} password={password} action={()=>this.changeInput()}/>
-        <Buttons back={()=>this.getBack()} signup={()=>this.signup()} lengthError={state.lengthError}/>
+        <InputFields username={username} password={password} action={(event)=>this.changeInput(event)}/>
+        <Buttons back={()=>this.getBack()} signup={()=>this.signup(username, password)} lengthError={state.lengthError}/>
       </div>
     )
   }
@@ -68,8 +68,8 @@ const Loading = (props) => (
 
 const InputFields = (props) => (
   <div>
-    <p><input onChange={props.action} name={"username"} placeholder={"username"}/></p>
-    <p><input onChange={props.action} name={"password"} placeholder={"password"}/></p>
+    <p><input onChange={props.action} name={"username"} placeholder={"username"} value={props.username}/></p>
+    <p><input onChange={props.action} name={"password"} placeholder={"password"} value={props.password}/></p>
   </div>
 )
 

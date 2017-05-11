@@ -14,11 +14,21 @@ class APP:
     @staticmethod
     def protected(view):
         def render_app(request):
-            user = authenticate(request)
-            is_authenticated = user is not None
-            if not is_authenticated:
+            if not request.user.is_authenticated:
                 return redirect('get_login')
             template = view(request)
+            app = template + '.html'
+            return render(request, app)
+        return render_app
+
+    @staticmethod
+    def entry(view):
+        def render_app(request):
+            templates = view(request)
+            if request.user.is_authenticated:
+                template = apps["protected"]
+            else:
+                template = apps["public"]
             app = template + '.html'
             return render(request, app)
         return render_app

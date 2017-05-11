@@ -23157,25 +23157,31 @@
 	});
 	var requestedLoginReducer = exports.requestedLoginReducer = function requestedLoginReducer(current, action) {
 	  var nextState = Object.assign({}, current);
+	  nextState.state.isWaiting = true;
 	  return nextState;
 	};
 
 	var loginResponseReducer = exports.loginResponseReducer = function loginResponseReducer(current, action) {
 	  var nextState = Object.assign({}, current);
 	  var response = action.data;
-	  nextState.state.loginSuccessful = response["authenticated"];
+	  nextState.state.isWaiting = false;
+	  nextState.state.login.successfulLogin = response.data.authenticated;
+	  nextState.state.login.error = !response.data.authenticated;
 	  return nextState;
 	};
 
 	var requestedSignupReducer = exports.requestedSignupReducer = function requestedSignupReducer(current, action) {
 	  var nextState = Object.assign({}, current);
+	  nextState.state.isWaiting = true;
 	  return nextState;
 	};
 
 	var signupResponseReducer = exports.signupResponseReducer = function signupResponseReducer(current, action) {
 	  var nextState = Object.assign({}, current);
 	  var response = action.data;
-	  nextState.state.signupSuccessful = response["created"];
+	  nextState.state.isWaiting = false;
+	  nextState.state.signup.successfulSignup = response.data.created;
+	  nextState.state.signup.occupiedError = !response.data.created;
 	  return nextState;
 	};
 
@@ -23207,14 +23213,14 @@
 	});
 	var userInputReducer = exports.userInputReducer = function userInputReducer(current, action) {
 	  var nextState = Object.assign({}, current);
-	  if (action.input == "username" && action.value.length < 11) {
-	    nextState.data.username = action.value;
+	  if (action.input == "username") {
+	    nextState.data.username = action.value.length < 11 ? action.value : nextState.data.username;
 	  }
-	  if (action.input == "password" && action.value.length < 11) {
-	    nextState.data.password = action.value;
+	  if (action.input == "password") {
+	    nextState.data.password = action.value.length < 11 ? action.value : nextState.data.password;
 	  }
-	  nextState.state.signup.lengthError = nextState.data.username.length < 6 && nextState.data.password.length < 6;
-	  nextState.state.signup.occupied = false;
+	  nextState.state.signup.lengthError = nextState.data.username.length < 6 || nextState.data.password.length < 6;
+	  nextState.state.signup.occupiedError = false;
 	  nextState.state.login.error = false;
 	  return nextState;
 	};
@@ -23611,13 +23617,13 @@
 	          occupiedError: state.occupiedError,
 	          success: state.successfulSignup,
 	          isWaiting: isWaiting }),
-	        _react2.default.createElement(InputFields, { username: username, password: password, action: function action() {
-	            return _this2.changeInput();
+	        _react2.default.createElement(InputFields, { username: username, password: password, action: function action(event) {
+	            return _this2.changeInput(event);
 	          } }),
 	        _react2.default.createElement(Buttons, { back: function back() {
 	            return _this2.getBack();
 	          }, signup: function signup() {
-	            return _this2.signup();
+	            return _this2.signup(username, password);
 	          }, lengthError: state.lengthError })
 	      );
 	    }
@@ -23699,12 +23705,12 @@
 	    _react2.default.createElement(
 	      'p',
 	      null,
-	      _react2.default.createElement('input', { onChange: props.action, name: "username", placeholder: "username" })
+	      _react2.default.createElement('input', { onChange: props.action, name: "username", placeholder: "username", value: props.username })
 	    ),
 	    _react2.default.createElement(
 	      'p',
 	      null,
-	      _react2.default.createElement('input', { onChange: props.action, name: "password", placeholder: "password" })
+	      _react2.default.createElement('input', { onChange: props.action, name: "password", placeholder: "password", value: props.password })
 	    )
 	  );
 	};
@@ -23794,13 +23800,14 @@
 	        { className: "interface" },
 	        _react2.default.createElement(Title, { title: "Login" }),
 	        _react2.default.createElement(Message, { error: state.error, success: state.successfulLogin, isWaiting: isWaiting }),
-	        _react2.default.createElement(InputFields, { username: username, password: password, action: function action() {
-	            return _this2.changeInput();
+	        state.successfulLogin && window.location.replace('/list'),
+	        _react2.default.createElement(InputFields, { username: username, password: password, action: function action(event) {
+	            return _this2.changeInput(event);
 	          } }),
 	        _react2.default.createElement(Buttons, { back: function back() {
 	            return _this2.getBack();
 	          }, login: function login() {
-	            return _this2.login();
+	            return _this2.login(username, password);
 	          } })
 	      );
 	    }
@@ -23877,12 +23884,12 @@
 	    _react2.default.createElement(
 	      'p',
 	      null,
-	      _react2.default.createElement('input', { onChange: props.action, name: "username", placeholder: "username" })
+	      _react2.default.createElement('input', { onChange: props.action, name: "username", placeholder: "username", value: props.username })
 	    ),
 	    _react2.default.createElement(
 	      'p',
 	      null,
-	      _react2.default.createElement('input', { onChange: props.action, name: "password", placeholder: "password" })
+	      _react2.default.createElement('input', { onChange: props.action, name: "password", placeholder: "password", value: props.password })
 	    )
 	  );
 	};
@@ -24430,10 +24437,10 @@
 	exports = module.exports = __webpack_require__(220)();
 	// imports
 	exports.i(__webpack_require__(227), "");
-	exports.i(__webpack_require__(239), "");
-	exports.i(__webpack_require__(240), "");
-	exports.i(__webpack_require__(241), "");
-	exports.i(__webpack_require__(242), "");
+	exports.i(__webpack_require__(228), "");
+	exports.i(__webpack_require__(229), "");
+	exports.i(__webpack_require__(230), "");
+	exports.i(__webpack_require__(231), "");
 
 	// module
 	exports.push([module.id, ".main-container {\n  text-align: center;\n  position: absolute;\n  width: 34%;\n  left: 33%;\n  top: 20vh;\n  background-color: white;\n  border: 1px solid black;\n  border-radius: 3px;\n  box-shadow: 0 0 20px white;\n  height: 250px;\n}\n", ""]);
@@ -24456,18 +24463,7 @@
 
 
 /***/ }),
-/* 228 */,
-/* 229 */,
-/* 230 */,
-/* 231 */,
-/* 232 */,
-/* 233 */,
-/* 234 */,
-/* 235 */,
-/* 236 */,
-/* 237 */,
-/* 238 */,
-/* 239 */
+/* 228 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(220)();
@@ -24481,7 +24477,7 @@
 
 
 /***/ }),
-/* 240 */
+/* 229 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(220)();
@@ -24495,7 +24491,7 @@
 
 
 /***/ }),
-/* 241 */
+/* 230 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(220)();
@@ -24509,7 +24505,7 @@
 
 
 /***/ }),
-/* 242 */
+/* 231 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(220)();

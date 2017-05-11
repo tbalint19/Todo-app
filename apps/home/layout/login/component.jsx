@@ -24,10 +24,53 @@ class Login extends Container{
     let password = this.props.data.password
     return(
       <div className={"interface"}>
-
+        <Title title={""}/>
+        <Message error={state.error} success={state.successfulLogin} isWaiting={isWaiting}/>
+        <InputFields username={username} password={password} action={()=>this.changeInput()}/>
+        <Buttons back={()=>this.getBack()} login={()=>this.login()}/>
       </div>
     )
   }
 }
 
 export default Login
+
+const Title = (props) => (
+  <div>
+    <h1>{props.title}</h1>
+  </div>
+)
+
+const Message = (props) => (
+  <div>
+    <p>{props.error && <Err message={""}/>}</p>
+    <p>{props.success && <Success message={""}/>}</p>
+    <p>{props.isWaiting && <Loading message={""}/>}</p>
+  </div>
+)
+
+const Err = (props) => (
+  <span>{props.message}</span>
+)
+
+const Success = (props) => (
+  <span>{props.message}</span>
+)
+
+const Loading = (props) => (
+  <span>{props.message}</span>
+)
+
+const InputFields = (props) => (
+  <div>
+    <p><input onChange={props.action} name={props.name} placeholder={props.name}/></p>
+    <p><input onChange={props.action} name={props.name} placeholder={props.name}/></p>
+  </div>
+)
+
+const Buttons = (props) => (
+  <div>
+    <button onClick={props.back}>Back</button>
+    <button onClick={props.login}>Login</button>
+  </div>
+)

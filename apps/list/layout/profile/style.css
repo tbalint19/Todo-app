@@ -1,0 +1,11 @@
+.profile-container {
+  text-align: center;
+  position: fixed;
+  top: 5vh;
+  right: 10%;
+  width: 200px;
+  padding: 30px;
+  background-color: white;
+  border: 1px solid black;
+  box-shadow: 0 0 10px white;
+}

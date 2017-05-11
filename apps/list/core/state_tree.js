@@ -5,7 +5,10 @@ const stateTree = {
   },
 
   data: {
-
+    user: {
+      name: "",
+      avatar: ""
+    }
   }
 }
 

@@ -3,6 +3,8 @@ import createApiController from 'datamanager'
 import stateTree from './state_tree'
 
 import {
+  requestedUserDataReducer,
+  userDataResponseReducer,
   requestedLogoutReducer,
   logoutResponseReducer
 } from './reducers/response_reducers'
@@ -15,6 +17,12 @@ const core = (() => {
     let current = state
     let nextState
     switch (action.type) {
+      case "USER_DATA_REQUESTED":
+        nextState = requestedUserDataReducer(current, action)
+        return nextState
+      case "USER_DATA_ARRIVED":
+        nextState = userDataResponseReducer(current, action)
+        return nextState
       case "LOGOUT_REQUESTED":
         nextState = requestedLogoutReducer(current, action)
         return nextState

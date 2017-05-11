@@ -23569,6 +23569,12 @@
 	    var current = state;
 	    var nextState = void 0;
 	    switch (action.type) {
+	      case "USER_DATA_REQUESTED":
+	        nextState = (0, _response_reducers.requestedUserDataReducer)(current, action);
+	        return nextState;
+	      case "USER_DATA_ARRIVED":
+	        nextState = (0, _response_reducers.userDataResponseReducer)(current, action);
+	        return nextState;
 	      case "LOGOUT_REQUESTED":
 	        nextState = (0, _response_reducers.requestedLogoutReducer)(current, action);
 	        return nextState;
@@ -23604,7 +23610,12 @@
 	    logoutCompleted: false
 	  },
 
-	  data: {}
+	  data: {
+	    user: {
+	      name: "",
+	      avatar: ""
+	    }
+	  }
 	};
 
 	exports.default = stateTree;
@@ -23627,6 +23638,20 @@
 	var logoutResponseReducer = exports.logoutResponseReducer = function logoutResponseReducer(current, action) {
 	  var nextState = Object.assign({}, current);
 	  nextState.state.logoutCompleted = true;
+	  return nextState;
+	};
+
+	var requestedUserDataReducer = exports.requestedUserDataReducer = function requestedUserDataReducer(current, action) {
+	  var nextState = Object.assign({}, current);
+	  nextState.state.isWaiting = true;
+	  return nextState;
+	};
+
+	var userDataResponseReducer = exports.userDataResponseReducer = function userDataResponseReducer(current, action) {
+	  var nextState = Object.assign({}, current);
+	  var response = action.data;
+	  nextState.data.user.name = response.data.username;
+	  nextState.data.user.avatar = response.data.avatar;
 	  return nextState;
 	};
 
@@ -23764,16 +23789,28 @@
 	    }
 	  }, {
 	    key: 'componentDidMount',
-	    value: function componentDidMount() {}
+	    value: function componentDidMount() {
+	      var request = { method: "GET", destination: "api/user_data", action: { type: "USER_DATA_ARRIVED" } };
+	      this.JSONtransfer(request);
+	      this.dispatch({ type: "USER_DATA_REQUESTED" });
+	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
 
 	      var logoutCompleted = this.props.state.logoutCompleted;
+	      var name = this.props.data.user.name;
+	      var avatar = this.props.data.user.avatar;
 	      return _react2.default.createElement(
 	        'div',
-	        null,
+	        { className: "profile-container" },
+	        _react2.default.createElement('img', { src: avatar }),
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          name
+	        ),
 	        logoutCompleted && location.reload(),
 	        _react2.default.createElement(
 	          'button',
@@ -23855,7 +23892,7 @@
 
 
 	// module
-	exports.push([module.id, "", ""]);
+	exports.push([module.id, ".profile-container {\n  text-align: center;\n  position: fixed;\n  top: 5vh;\n  right: 10%;\n  width: 200px;\n  padding: 30px;\n  background-color: white;\n  border: 1px solid black;\n  box-shadow: 0 0 10px white;\n}\n", ""]);
 
 	// exports
 

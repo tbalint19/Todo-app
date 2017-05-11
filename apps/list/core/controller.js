@@ -3,17 +3,9 @@ import createApiController from 'datamanager'
 import stateTree from './state_tree'
 
 import {
-  requestedGithubDataReducer,
-  arrivedGithubDataReducer
+  requestedLogoutReducer,
+  logoutResponseReducer
 } from './reducers/response_reducers'
-
-import {
-  mainChangeReducer
-} from './reducers/select_reducers'
-
-import {
-  userInputReducer
-} from './reducers/input_reducers'
 
 const core = (() => {
 
@@ -23,17 +15,11 @@ const core = (() => {
     let current = state
     let nextState
     switch (action.type) {
-      case "INPUT_FIELD_CHANGED":
-        nextState = userInputReducer(current, action)
+      case "LOGOUT_REQUESTED":
+        nextState = requestedLogoutReducer(current, action)
         return nextState
-      case "MAIN_CHANGE":
-        nextState = mainChangeReducer(current, action)
-        return nextState
-      case "GITHUB_DATA_REQUESTED":
-        nextState = requestedGithubDataReducer(current, action)
-        return nextState
-      case "GITHUB_DATA_ARRIVED":
-        nextState = arrivedGithubDataReducer(current, action)
+      case "LOGOUT_RESPONSE":
+        nextState = logoutResponseReducer(current, action)
         return nextState
       default:
         nextState = Object.assign({}, current)

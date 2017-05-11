@@ -3,6 +3,7 @@ import React from 'react'
 import ViewDependencies from 'view_dependencies'
 
 import Background from './background/component'
+import Profile from './profile/component'
 
 class View extends React.Component{
 
@@ -18,6 +19,8 @@ class View extends React.Component{
         <ViewDependencies/>
 
         <Background/>
+
+        <Profile data={data} state={state} controller={controller}/>
 
       </div>
 

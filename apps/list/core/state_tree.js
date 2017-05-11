@@ -1,12 +1,11 @@
 const stateTree = {
   state: {
-    interface: "start",
-    isWaiting: false
+    isWaiting: false,
+    logoutCompleted: false
   },
 
   data: {
-    username: "",
-    password: ""
+
   }
 }
 

@@ -58,14 +58,14 @@
 
 	var _controller2 = _interopRequireDefault(_controller);
 
-	var _view = __webpack_require__(237);
+	var _view = __webpack_require__(235);
 
 	var _view2 = _interopRequireDefault(_view);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	__webpack_require__(218);
-	__webpack_require__(239);
+	__webpack_require__(238);
 
 	var app = document.getElementById('app');
 
@@ -23080,7 +23080,59 @@
 /***/ }),
 /* 212 */,
 /* 213 */,
-/* 214 */,
+/* 214 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Container = function (_React$Component) {
+	  _inherits(Container, _React$Component);
+
+	  function Container(props) {
+	    _classCallCheck(this, Container);
+
+	    var _this = _possibleConstructorReturn(this, (Container.__proto__ || Object.getPrototypeOf(Container)).call(this, props));
+
+	    _this.controller = props.controller;
+	    return _this;
+	  }
+
+	  _createClass(Container, [{
+	    key: 'dispatch',
+	    value: function dispatch(action) {
+	      this.controller.dispatch(action);
+	    }
+	  }, {
+	    key: 'JSONtransfer',
+	    value: function JSONtransfer(request) {
+	      this.controller.JSONtransfer(request);
+	    }
+	  }]);
+
+	  return Container;
+	}(_react2.default.Component);
+
+	exports.default = Container;
+
+/***/ }),
 /* 215 */,
 /* 216 */,
 /* 217 */,
@@ -23504,10 +23556,6 @@
 
 	var _response_reducers = __webpack_require__(234);
 
-	var _select_reducers = __webpack_require__(235);
-
-	var _input_reducers = __webpack_require__(236);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var core = function () {
@@ -23521,17 +23569,11 @@
 	    var current = state;
 	    var nextState = void 0;
 	    switch (action.type) {
-	      case "INPUT_FIELD_CHANGED":
-	        nextState = (0, _input_reducers.userInputReducer)(current, action);
+	      case "LOGOUT_REQUESTED":
+	        nextState = (0, _response_reducers.requestedLogoutReducer)(current, action);
 	        return nextState;
-	      case "MAIN_CHANGE":
-	        nextState = (0, _select_reducers.mainChangeReducer)(current, action);
-	        return nextState;
-	      case "GITHUB_DATA_REQUESTED":
-	        nextState = (0, _response_reducers.requestedGithubDataReducer)(current, action);
-	        return nextState;
-	      case "GITHUB_DATA_ARRIVED":
-	        nextState = (0, _response_reducers.arrivedGithubDataReducer)(current, action);
+	      case "LOGOUT_RESPONSE":
+	        nextState = (0, _response_reducers.logoutResponseReducer)(current, action);
 	        return nextState;
 	      default:
 	        nextState = Object.assign({}, current);
@@ -23558,14 +23600,11 @@
 	});
 	var stateTree = {
 	  state: {
-	    interface: "start",
-	    isWaiting: false
+	    isWaiting: false,
+	    logoutCompleted: false
 	  },
 
-	  data: {
-	    username: "",
-	    password: ""
-	  }
+	  data: {}
 	};
 
 	exports.default = stateTree;
@@ -23579,63 +23618,20 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	var requestedGithubDataReducer = exports.requestedGithubDataReducer = function requestedGithubDataReducer(current, action) {
+	var requestedLogoutReducer = exports.requestedLogoutReducer = function requestedLogoutReducer(current, action) {
 	  var nextState = Object.assign({}, current);
-	  nextState.state.githubDataPresent = false;
-	  nextState.state.isFetchingGithub = true;
+	  nextState.state.isWaiting = true;
 	  return nextState;
 	};
 
-	var arrivedGithubDataReducer = exports.arrivedGithubDataReducer = function arrivedGithubDataReducer(current, action) {
+	var logoutResponseReducer = exports.logoutResponseReducer = function logoutResponseReducer(current, action) {
 	  var nextState = Object.assign({}, current);
-	  nextState.state.githubDataPresent = true;
-	  nextState.state.isFetchingGithub = false;
-	  var random = Math.floor(Math.random() * 10);
-	  var user = action.data[random];
-	  nextState.data.githubData.login = user.login;
-	  nextState.data.githubData.avatar_url = user.avatar_url;
+	  nextState.state.logoutCompleted = true;
 	  return nextState;
 	};
 
 /***/ }),
 /* 235 */
-/***/ (function(module, exports) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var mainChangeReducer = exports.mainChangeReducer = function mainChangeReducer(current, action) {
-	  var nextState = Object.assign({}, current);
-	  nextState.state.interface = action.interface;
-	  nextState.data.username = "";
-	  nextState.data.password = "";
-	  return nextState;
-	};
-
-/***/ }),
-/* 236 */
-/***/ (function(module, exports) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var userInputReducer = exports.userInputReducer = function userInputReducer(current, action) {
-	  var nextState = Object.assign({}, current);
-	  if (action.input == "username" && action.value.length < 11) {
-	    nextState.data.username = action.value;
-	  }
-	  if (action.input == "password" && action.value.length < 11) {
-	    nextState.data.password = action.value;
-	  }
-	  return nextState;
-	};
-
-/***/ }),
-/* 237 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23654,9 +23650,13 @@
 
 	var _view_dependencies2 = _interopRequireDefault(_view_dependencies);
 
-	var _component = __webpack_require__(238);
+	var _component = __webpack_require__(236);
 
 	var _component2 = _interopRequireDefault(_component);
+
+	var _component3 = __webpack_require__(237);
+
+	var _component4 = _interopRequireDefault(_component3);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -23685,7 +23685,8 @@
 	        'div',
 	        { className: "app-container" },
 	        _react2.default.createElement(_view_dependencies2.default, null),
-	        _react2.default.createElement(_component2.default, null)
+	        _react2.default.createElement(_component2.default, null),
+	        _react2.default.createElement(_component4.default, { data: data, state: state, controller: controller })
 	      );
 	    }
 	  }]);
@@ -23696,7 +23697,7 @@
 	exports.default = View;
 
 /***/ }),
-/* 238 */
+/* 236 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -23718,13 +23719,86 @@
 	exports.default = Background;
 
 /***/ }),
-/* 239 */
+/* 237 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _container = __webpack_require__(214);
+
+	var _container2 = _interopRequireDefault(_container);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Profile = function (_Container) {
+	  _inherits(Profile, _Container);
+
+	  function Profile() {
+	    _classCallCheck(this, Profile);
+
+	    return _possibleConstructorReturn(this, (Profile.__proto__ || Object.getPrototypeOf(Profile)).apply(this, arguments));
+	  }
+
+	  _createClass(Profile, [{
+	    key: 'logout',
+	    value: function logout() {
+	      var request = { method: "GET", destination: "api/logout", action: { type: "LOGOUT_RESPONSE" } };
+	      this.JSONtransfer(request);
+	      this.dispatch({ type: "LOGOUT_REQUESTED" });
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {}
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+
+	      var logoutCompleted = this.props.state.logoutCompleted;
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        logoutCompleted && location.reload(),
+	        _react2.default.createElement(
+	          'button',
+	          { onClick: function onClick() {
+	              return _this2.logout();
+	            } },
+	          'Logout'
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Profile;
+	}(_container2.default);
+
+	exports.default = Profile;
+
+/***/ }),
+/* 238 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(240);
+	var content = __webpack_require__(239);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(224)(content, {});
@@ -23744,15 +23818,30 @@
 	}
 
 /***/ }),
+/* 239 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(220)();
+	// imports
+	exports.i(__webpack_require__(240), "");
+	exports.i(__webpack_require__(241), "");
+
+	// module
+	exports.push([module.id, ".app-container {\n\n}\n", ""]);
+
+	// exports
+
+
+/***/ }),
 /* 240 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(220)();
 	// imports
-	exports.i(__webpack_require__(241), "");
+
 
 	// module
-	exports.push([module.id, ".app-container {\n\n}\n", ""]);
+	exports.push([module.id, "body {\n  padding: 0;\n  margin: 0;\n}\n\n.home-background {\n  z-index: -1;\n  position: fixed;\n  margin: 0;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100vh;\n  background: url(\"/static/background.jpg\");\n  background-repeat: no-repeat;\n  background-size: cover;\n}\n\n.home-background::after {\n  opacity: 0.55;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  content: \"\";\n  position: absolute;\n  background-color: blue;\n}\n", ""]);
 
 	// exports
 
@@ -23766,7 +23855,7 @@
 
 
 	// module
-	exports.push([module.id, "body {\n  padding: 0;\n  margin: 0;\n}\n\n.home-background {\n  z-index: -1;\n  position: fixed;\n  margin: 0;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100vh;\n  background: url(\"/static/background.jpg\");\n  background-repeat: no-repeat;\n  background-size: cover;\n}\n\n.home-background::after {\n  opacity: 0.55;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  content: \"\";\n  position: absolute;\n  background-color: blue;\n}\n", ""]);
+	exports.push([module.id, "", ""]);
 
 	// exports
 

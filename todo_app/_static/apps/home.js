@@ -23398,14 +23398,28 @@
 	      this.dispatch({ type: "INTERFACE_CHANGE", interface: "signup" });
 	    }
 	  }, {
-	    key: 'getInfo',
-	    value: function getInfo() {
-	      this.dispatch({ type: "INTERFACE_CHANGE", interface: "info" });
+	    key: 'getAbout',
+	    value: function getAbout() {
+	      this.dispatch({ type: "INTERFACE_CHANGE", interface: "about" });
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement('div', { className: "interface" });
+	      var _this2 = this;
+
+	      return _react2.default.createElement(
+	        'div',
+	        { className: "interface" },
+	        _react2.default.createElement(Title, { title: "" }),
+	        _react2.default.createElement(Text, { text: "" }),
+	        _react2.default.createElement(Buttons, { signup: function signup() {
+	            return _this2.getSignup();
+	          }, login: function login() {
+	            return _this2.getLogin();
+	          }, about: function about() {
+	            return _this2.getAbout();
+	          } })
+	      );
 	    }
 	  }]);
 
@@ -23413,6 +23427,61 @@
 	}(_container2.default);
 
 	exports.default = Start;
+
+
+	var Title = function Title(props) {
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(
+	      'h1',
+	      null,
+	      props.title
+	    )
+	  );
+	};
+
+	var Text = function Text(props) {
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(
+	      'p',
+	      null,
+	      props.text
+	    )
+	  );
+	};
+
+	var Buttons = function Buttons(props) {
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(
+	      'div',
+	      null,
+	      _react2.default.createElement(
+	        'button',
+	        { onClick: props.signup },
+	        'Signup'
+	      ),
+	      _react2.default.createElement(
+	        'button',
+	        { onClick: props.login },
+	        'Login'
+	      )
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      null,
+	      _react2.default.createElement(
+	        'button',
+	        { onClick: props.about },
+	        'Read more'
+	      )
+	    )
+	  );
+	};
 
 /***/ }),
 /* 214 */

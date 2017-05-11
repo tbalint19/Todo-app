@@ -23593,11 +23593,30 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+
 	      var state = this.props.state.signup;
 	      var isWaiting = this.props.state.isWaiting;
 	      var username = this.props.data.username;
 	      var password = this.props.data.password;
-	      return _react2.default.createElement('div', { className: "interface" });
+	      return _react2.default.createElement(
+	        'div',
+	        { className: "interface" },
+	        _react2.default.createElement(Title, { title: "" }),
+	        _react2.default.createElement(Message, {
+	          lengthError: state.lengthError,
+	          occupiedError: state.occupiedError,
+	          success: state.successfulSignup,
+	          isWaiting: isWaiting }),
+	        _react2.default.createElement(InputFields, { username: username, password: password, action: function action() {
+	            return _this2.changeInput();
+	          } }),
+	        _react2.default.createElement(Buttons, { back: function back() {
+	            return _this2.getBack();
+	          }, login: function login() {
+	            return _this2.login();
+	          } })
+	      );
 	    }
 	  }]);
 
@@ -23605,6 +23624,104 @@
 	}(_container2.default);
 
 	exports.default = Signup;
+
+
+	var Title = function Title(props) {
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(
+	      'h1',
+	      null,
+	      props.title
+	    )
+	  );
+	};
+
+	var Message = function Message(props) {
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(
+	      'p',
+	      null,
+	      props.lengthError && _react2.default.createElement(Err, { message: "" })
+	    ),
+	    _react2.default.createElement(
+	      'p',
+	      null,
+	      props.occupiedError && _react2.default.createElement(Err, { message: "" })
+	    ),
+	    _react2.default.createElement(
+	      'p',
+	      null,
+	      props.success && _react2.default.createElement(Success, { message: "" })
+	    ),
+	    _react2.default.createElement(
+	      'p',
+	      null,
+	      props.isWaiting && _react2.default.createElement(Loading, { message: "" })
+	    )
+	  );
+	};
+
+	var Err = function Err(props) {
+	  return _react2.default.createElement(
+	    'span',
+	    null,
+	    props.message
+	  );
+	};
+
+	var Success = function Success(props) {
+	  return _react2.default.createElement(
+	    'span',
+	    null,
+	    props.message
+	  );
+	};
+
+	var Loading = function Loading(props) {
+	  return _react2.default.createElement(
+	    'span',
+	    null,
+	    props.message
+	  );
+	};
+
+	var InputFields = function InputFields(props) {
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(
+	      'p',
+	      null,
+	      _react2.default.createElement('input', { onChange: props.action, name: "username", placeholder: "username" })
+	    ),
+	    _react2.default.createElement(
+	      'p',
+	      null,
+	      _react2.default.createElement('input', { onChange: props.action, name: "password", placeholder: "password" })
+	    )
+	  );
+	};
+
+	var Buttons = function Buttons(props) {
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(
+	      'button',
+	      { onClick: props.back },
+	      'Back'
+	    ),
+	    _react2.default.createElement(
+	      'button',
+	      { onClick: props.signup },
+	      'Sign up'
+	    )
+	  );
+	};
 
 /***/ }),
 /* 216 */
@@ -23757,12 +23874,12 @@
 	    _react2.default.createElement(
 	      'p',
 	      null,
-	      _react2.default.createElement('input', { onChange: props.action, name: props.name, placeholder: props.name })
+	      _react2.default.createElement('input', { onChange: props.action, name: "username", placeholder: "username" })
 	    ),
 	    _react2.default.createElement(
 	      'p',
 	      null,
-	      _react2.default.createElement('input', { onChange: props.action, name: props.name, placeholder: props.name })
+	      _react2.default.createElement('input', { onChange: props.action, name: "password", placeholder: "password" })
 	    )
 	  );
 	};
